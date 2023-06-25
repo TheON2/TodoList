@@ -6,6 +6,17 @@ const Dropdown = styled.div`
   position: relative;
   display: block;
 `;
+const DropdownBox = styled.div`
+  border: 1px solid rgb(221, 221, 221);
+  height: 40px;
+  width: 300px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 28px;
+`;
 
 const DropdownContent = styled.div`
   display: ${props => (props.show ? "block" : "none")};
@@ -16,11 +27,16 @@ const DropdownContent = styled.div`
   z-index: 1;
 `;
 
+
 const DropdownItem = styled.div`
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
+  height: 40px;
+  width: 300px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 28px;
 `;
 
 const FlowSelect = () => {
@@ -52,7 +68,9 @@ const FlowSelect = () => {
 
   return (
     <Dropdown ref={wrapperRef}>
-      <button onClick={() => setShow(!show)}>{selected || "Select an option"}</button>
+      <DropdownBox onClick={() => setShow(!show)}>
+        <div>{selected || options[0]}</div><div>▼</div>
+      </DropdownBox>
       {show && createPortal(<DropdownContent show={show}>
         {options.map((option, index) => (
           <DropdownItem key={index} onClick={() => handleSelection(option)}>
