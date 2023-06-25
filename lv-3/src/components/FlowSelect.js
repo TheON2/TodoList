@@ -28,6 +28,9 @@ const FlowSelect = () => {
   const [selected, setSelected] = useState("");
   const wrapperRef = useRef(null);
 
+  const dom =document.getElementById('warp')
+  wrapperRef.current=dom
+
   const options = ["리액트", "자바", "스프링","리액트 네이티브"];
 
   const handleSelection = (value) => {
@@ -50,7 +53,7 @@ const FlowSelect = () => {
   return (
     <Dropdown ref={wrapperRef}>
       <button onClick={() => setShow(!show)}>{selected || "Select an option"}</button>
-      {createPortal(<DropdownContent show={show}>
+      {show && createPortal(<DropdownContent show={show}>
         {options.map((option, index) => (
           <DropdownItem key={index} onClick={() => handleSelection(option)}>
             {option}
@@ -62,3 +65,4 @@ const FlowSelect = () => {
 };
 
 export default FlowSelect;
+
