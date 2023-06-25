@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import {createPortal} from "react-dom";
 
 const Dropdown = styled.div`
-  position: absolute;
-  display: inline-block;
+  position: relative;
+  display: block;
 `;
 
 const DropdownContent = styled.div`
@@ -27,7 +28,7 @@ const FlowSelect = () => {
   const [selected, setSelected] = useState("");
   const wrapperRef = useRef(null);
 
-  const options = ["Option 1", "Option 2", "Option 3"];
+  const options = ["리액트", "자바", "스프링","리액트 네이티브"];
 
   const handleSelection = (value) => {
     setSelected(value);
@@ -49,13 +50,13 @@ const FlowSelect = () => {
   return (
     <Dropdown ref={wrapperRef}>
       <button onClick={() => setShow(!show)}>{selected || "Select an option"}</button>
-      <DropdownContent show={show}>
+      {createPortal(<DropdownContent show={show}>
         {options.map((option, index) => (
           <DropdownItem key={index} onClick={() => handleSelection(option)}>
             {option}
           </DropdownItem>
         ))}
-      </DropdownContent>
+      </DropdownContent>,document.getElementById('warp'))}
     </Dropdown>
   );
 };
