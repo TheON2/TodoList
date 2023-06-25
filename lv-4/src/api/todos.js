@@ -13,8 +13,12 @@ const updateTodo = async (todo) => {
   await axios.patch(`${process.env.REACT_APP_LOCAL_SERVER}/todos/${todo.id}`,{done:!(todo.done)});
 };
 
+const updateDoneTodo = async (todo) => {
+  await axios.patch(`${process.env.REACT_APP_LOCAL_SERVER}/todos/${todo.id}`,todo);
+};
+
 const deleteTodo = async (todoId) => {
   await axios.delete(`${process.env.REACT_APP_LOCAL_SERVER}/todos/${todoId}`);
 };
 
-export { getTodos, addTodo , updateTodo , deleteTodo };
+export { getTodos, addTodo , updateTodo , updateDoneTodo , deleteTodo };
