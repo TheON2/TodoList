@@ -1,10 +1,10 @@
-import { createStore } from "redux";
-import { combineReducers } from "redux";
-import todos from "../../reducers/todos";
+import {combineReducers, configureStore, createStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
-  todos
 });
+
+// 2. create store
 const store = createStore(rootReducer);
 
+// 3. export
 export default store;

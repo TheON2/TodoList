@@ -1,21 +1,27 @@
 import {useCallback} from "react";
-import {useDispatch} from "react-redux";
-import {DELETE_TODOS_REQUEST, UPDATE_TODOS_REQUEST} from "../reducers/todos";
 import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../redux/styles";
+import {useMutation, useQueryClient} from "react-query";
+import { deleteTodo,updateTodo } from "../api/todos";
 
 const TodoCard = ({todo}) => {
-  const dispatch = useDispatch();
-  const deleteTodo=useCallback(()=>{
-    dispatch({
-      type:DELETE_TODOS_REQUEST,
-      data:todo.id
-    })
+  const queryClient = new useQueryClient()
+
+  const mutation_deleteTodo= useMutation(deleteTodo, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    },
+  });
+  const mutation_updateTodo= useMutation(updateTodo, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    },
+  });
+
+  const delete_Todo=useCallback(()=>{
+    mutation_deleteTodo.mutate(todo.id)
   },[todo])
-  const updateTodo=useCallback(()=>{
-    dispatch({
-      type:UPDATE_TODOS_REQUEST,
-      data:todo.id
-    })
+  const update_Todo=useCallback(()=>{
+    mutation_updateTodo.mutate(todo)
   },[todo])
 
   return (
@@ -25,9 +31,9 @@ const TodoCard = ({todo}) => {
           <div>{todo.content}</div>
         </div>
         <ButtonSet>
-          <DeleteButton onClick={deleteTodo}>삭제하기</DeleteButton>
-          {todo.done ? <CompleteButton onClick={updateTodo}>취소</CompleteButton>:
-          <CompleteButton onClick={updateTodo}>완료</CompleteButton>}
+          <DeleteButton onClick={delete_Todo}>삭제하기</DeleteButton>
+          {todo.done ? <CompleteButton onClick={update_Todo}>취소</CompleteButton>:
+          <CompleteButton onClick={update_Todo}>완료</CompleteButton>}
         </ButtonSet>
       </TodoContainer>
     </ListWrapper>

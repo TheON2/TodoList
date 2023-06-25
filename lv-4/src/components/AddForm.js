@@ -1,15 +1,23 @@
 import {useCallback} from "react";
-import {useDispatch} from "react-redux";
-import {ADD_TODOS_REQUEST} from "../reducers/todos";
 import useInput from "../hooks/useInput";
 import {Button, Form, Input, InputGroup, Label} from "../redux/styles";
+import {useMutation, useQueryClient} from "react-query";
+import {v4 as uuidv4} from 'uuid'
+import {addTodo} from "../api/todos";
 
 const AddForm = () => {
   const [title,onChangeTitle,setTitle] = useInput('')
   const [content,onChangeContent,setContent] = useInput('')
 
-  const dispatch = useDispatch();
-  const addTodo=useCallback((e)=>{
+  const queryClient = new useQueryClient()
+
+  const mutation = useMutation(addTodo, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    },
+  });
+
+  const add_Todo=useCallback((e)=>{
     if(title===''){
       alert('제목을 입력하세용')
       return
@@ -19,16 +27,22 @@ const AddForm = () => {
       return
     }
     e.preventDefault()
-    dispatch({
-      type:ADD_TODOS_REQUEST,
-      data: {title:title,content:content}
-    })
+
+    const newTodo = {
+      title,
+      content,
+      done: false,
+      id: uuidv4(),
+    };
+
+    mutation.mutate(newTodo)
+
     setTitle('')
     setContent('')
   },[title,content])
 
   return (
-    <Form onSubmit={addTodo}>
+    <Form onSubmit={add_Todo}>
       <InputGroup>
         <Label>제목</Label>
         <Input value={title} onChange={onChangeTitle} />
