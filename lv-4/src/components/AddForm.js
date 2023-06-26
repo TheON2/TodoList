@@ -4,6 +4,7 @@ import {Button, Form, Input, InputGroup, Label} from "../redux/styles";
 import {v4 as uuidv4} from 'uuid'
 import {addTodo} from "../api/todos";
 import useMutate from "../hooks/useMutate";
+import CustomButton from "./CustomButton";
 
 const AddForm = () => {
   const [title,onChangeTitle,setTitle] = useInput('')
@@ -35,14 +36,14 @@ const AddForm = () => {
   },[title,content,mutation,setTitle,setContent])
 
   return (
-    <Form onSubmit={add_Todo}>
+    <Form>
       <InputGroup>
         <Label>제목</Label>
         <Input value={title} onChange={onChangeTitle} />
         <Label>내용</Label>
         <Input value={content} onChange={onChangeContent} />
       </InputGroup>
-      <Button>추가하기</Button>
+      <CustomButton theme={'type1'} size={'medium'} onClick={add_Todo}>추가하기</CustomButton>
     </Form>
   );
 };

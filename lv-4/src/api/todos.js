@@ -10,13 +10,11 @@ const getTodos = async () => {
 };
 
 const updateDoneTodo = async (todo) => {
-  console.log(todo)
   await axios.patch(`${process.env.REACT_APP_LOCAL_SERVER}/todos/${todo.id}`,{done:!(todo.done)});
 };
 
-const updateTodo = async (todo) => {
-  console.log(todo)
-  await axios.patch(`${process.env.REACT_APP_LOCAL_SERVER}/todos/${todo.id}`,todo);
+const updateTodo = async (sendData) => {
+  await axios.patch(`${process.env.REACT_APP_LOCAL_SERVER}/todos/${sendData.id}`,{content:sendData.content});
 };
 
 const deleteTodo = async (todoId) => {

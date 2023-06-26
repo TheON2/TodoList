@@ -109,9 +109,10 @@ export const ListContainer = styled.div`
 `;
 
 export const ListWrapper = styled.div`
-  display: flex;
+  display: inline-block;
   flex-wrap: wrap;
   gap: 12px;
+  padding-bottom: 20px;
 `;
 
 

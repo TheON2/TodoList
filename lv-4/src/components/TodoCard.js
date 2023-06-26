@@ -1,12 +1,12 @@
 import {useCallback} from "react";
 import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../redux/styles";
-import { deleteTodo,updateTodo,updateDoneTodo } from "../api/todos";
+import { deleteTodo,updateDoneTodo } from "../api/todos";
 import useMutate from "../hooks/useMutate";
 import {Link} from "react-router-dom";
+import CustomButton from "./CustomButton";
 
 const TodoCard = ({todo}) => {
   const mutation_deleteTodo= useMutate(deleteTodo,'todos')
-  const mutation_updateTodo= useMutate(updateTodo,'todos')
   const mutation_updateDoneTodo= useMutate(updateDoneTodo,'todos')
 
   const delete_Todo=useCallback(()=>{
@@ -27,9 +27,9 @@ const TodoCard = ({todo}) => {
           <div>{todo.content}</div>
         </div>
         <ButtonSet>
-          <DeleteButton onClick={delete_Todo}>삭제하기</DeleteButton>
-          {todo.done ? <CompleteButton onClick={update_DoneTodo}>취소</CompleteButton>:
-          <CompleteButton onClick={update_DoneTodo}>완료</CompleteButton>}
+          <CustomButton theme={'type2'} size={'medium'} onClick={delete_Todo}>삭제하기</CustomButton>
+          {todo.done ? <CustomButton theme={'type1'} size={'medium'} onClick={update_DoneTodo}>취소</CustomButton>:
+            <CustomButton theme={'type1'} size={'medium'} onClick={update_DoneTodo}>완료</CustomButton>}
         </ButtonSet>
       </TodoContainer>
     </ListWrapper>

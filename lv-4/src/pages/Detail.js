@@ -1,10 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import styled from "styled-components";
 import {useQuery} from "react-query";
 import {getTodos} from "../api/todos";
+import CustomButton from "../components/CustomButton";
+import ReadTodo from "../components/ReadTodo";
+import UpdateTodo from "../components/UpdateTodo";
 
-const Container = styled.div`
+const Container1 = styled.div`
   background-color: #eee;
   border-radius: 12px;
   justify-content: space-between;
@@ -39,12 +42,29 @@ const StyledButton = styled.button`
   cursor: pointer;
 `;
 
+export const TitleContainer = styled.div`
+  align-items: center;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  padding: 0 20px;
+`;
+
+export const DoneContainer = styled.div`
+  align-items: center;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: ${props => props.done ? 'green' : 'red'};
+`;
 
 const Detail = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const { data } = useQuery("todos", getTodos);
+  const {data} = useQuery("todos", getTodos);
   const todo = data.find((todo) => todo.id === params.id)
+  const [onUpdate,setOnUpdate]=useState(false)
 
   useEffect(() => {
     if (!todo) {
@@ -57,16 +77,19 @@ const Detail = () => {
     navigate("/");
   };
 
+  const toggleUpdate = useCallback(()=>{
+    setOnUpdate(prev => !prev)
+  },[])
+
   return (
-    <Container>
+    <Container1>
       <div>
-        <div className="sc-dkzDqf gIyIMD">
-          <StyledButton className="sc-jSMfEi dcERit" onClick={handleButtonClick}>이전으로</StyledButton>
-          <h1>{todo?.title}</h1>
-        </div>
-        <Container2>{todo?.content}</Container2>
+        <CustomButton theme={'type1'} size={'medium'} onClick={handleButtonClick}>이전으로</CustomButton>
+        { !onUpdate ?
+          <ReadTodo todo={todo} toggleUpdate={toggleUpdate}/>:
+          <UpdateTodo todo={todo} toggleUpdate={toggleUpdate}/>}
       </div>
-    </Container>
+    </Container1>
   )
 }
 

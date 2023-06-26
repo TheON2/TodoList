@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# TodoList React과제 LV4 적용
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React 과제 Lv. 4
 
-## Available Scripts
+<aside>
+💡 **Goal : 나만의 React App 만들기**
 
-In the project directory, you can run:
+</aside>
 
-### `yarn start`
+- 지금까지 배운 내용을 활용하여 나만의 React App 을 만들어봅시다.
+    - 주제는 반드시 Todo List가 아니여도 됩니다. 본문과 댓글을 가진 구조의 웹 서비스면 **OK!**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<aside>
+👍 **Checklist : 과제 진행 간 고민해야 하는 부분**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+</aside>
 
-### `yarn test`
+- 상태관리 ( 유지 / 초기화 ) 가 잘 되어있나요?
+- 각 컴포넌트의 재사용성이 높나요?
+- 예외처리가 미흡한 부분은 없나요?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<aside>
+⚙ **features : 구현해야 할 기능이에요.**
 
-### `yarn build`
+</aside>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **(1) 공통**
+    - UI 구현하기 [완료]
+    - API 명세서 작성하기 [완료]
+- **(2) 본문 (ex: 할일) CRUD 구현**
+    - 본문 리스트 조회 하기 [완료]
+    - 본문 조회 하기 [완료]
+    - 본문 추가 하기 [완료]
+    - 본문 삭제 하기 [완료]
+    - 본문 수정 하기 [완료]
+- **(3) 배포**
+    - json-server 서버 배포 (heroku 사용)
+    - 리액트 프로젝트 배포 (S3, vercel 등 자유)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<aside>
+📌 **Requirement : 과제에 요구되는 사항이에요.**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+</aside>
 
-### `yarn eject`
+- **(1) UI/UX**
+    - 창의적인 UI/UX로 과제를 만드세요. (예시는 예시일뿐 입니다) [완료]
+    - 예시에 없어도 만들고 싶은 기능이 있다면 **OK!**
+- **(2) 필수 요구 사항**
+    - **동적 라우팅을 사용**하세요. [완료]
+    - 1개 이상의 `Custom Hook`을 구현하세요. [완료]
+    - **Form에 유효성 검증 기능을 적용**하세요. *유효성 검증이란, 아래의 예시들을 의미합니다.*
+        - ex: 제목을 10글자 이상 기입하지 않으면, 글을 추가할 수 없도록 제한 → `Alert` 으로 안내
+        - ex: Form에서 모든 input에 값을 입력하지 않으면, 버튼이 비활성화
+    - 버튼 **컴포넌트 1개로 모든 버튼을 구현**하세요. 모든 스타일과 기능을 버튼을 구현할 수 있는 **만능 버튼**을 만들어보는 것 입니다.
+    - `development` 환경에서만 `redux devtool`이 활성화 되도록 처리합니다.
+    - 배포된 결과물에서는 `console.log()` 가 보이지 않도록 처리합니다.
+    - `.env` 를 이용해서 API 서버의 URL 코드상에서 숨기도록 처리합니다. [완료]
+- (3) API 명세서 (프로젝트 완료 후 작성)
+- API 명세서는 API가 어떻게 작동하는지 설명하는 문서입니다. 여기서는 주어진 함수들에 대해 간단한 API 명세서를 작성해보겠습니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **addTodo**
+    - **URI**: `${process.env.REACT_APP_LOCAL_SERVER}/todos`
+    - **Method**: POST
+    - **Description**: 새로운 할 일을 추가합니다.
+    - **Payload**: `newTodo` - 새로 추가될 할 일의 정보를 담은 객체입니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **getTodos**
+    - **URI**: `${process.env.REACT_APP_LOCAL_SERVER}/todos`
+    - **Method**: GET
+    - **Description**: 모든 할 일을 가져옵니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **updateDoneTodo**
+    - **URI**: `${process.env.REACT_APP_LOCAL_SERVER}/todos/{id}`
+    - **Method**: PATCH
+    - **Description**: 할 일의 완료 상태를 업데이트합니다.
+    - **Params**: `id` - 업데이트할 할 일의 ID입니다.
+    - **Payload**: `{done:!(todo.done)}` - 완료 상태를 반전시키는 객체입니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **updateTodo**
+    - **URI**: `${process.env.REACT_APP_LOCAL_SERVER}/todos/{id}`
+    - **Method**: PATCH
+    - **Description**: 할 일의 내용을 업데이트합니다.
+    - **Params**: `id` - 업데이트할 할 일의 ID입니다.
+    - **Payload**: `{content:sendData.content}` - 할 일의 새로운 내용을 담은 객체입니다.
 
-## Learn More
+5. **deleteTodo**
+    - **URI**: `${process.env.REACT_APP_LOCAL_SERVER}/todos/{id}`
+    - **Method**: DELETE
+    - **Description**: 특정 할 일을 삭제합니다.
+    - **Params**: `id` - 삭제할 할 일의 ID입니다.
+    
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
