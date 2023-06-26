@@ -3,7 +3,8 @@
 # React 과제 Lv. 4
 
 <aside>
-💡 **Goal : 나만의 React App 만들기**
+
+**Goal : 나만의 React App 만들기**
 
 </aside>
 
@@ -11,7 +12,8 @@
     - 주제는 반드시 Todo List가 아니여도 됩니다. 본문과 댓글을 가진 구조의 웹 서비스면 **OK!**
 
 <aside>
-👍 **Checklist : 과제 진행 간 고민해야 하는 부분**
+ 
+**Checklist : 과제 진행 간 고민해야 하는 부분**
 
 </aside>
 
@@ -20,7 +22,8 @@
 - 예외처리가 미흡한 부분은 없나요?
 
 <aside>
-⚙ **features : 구현해야 할 기능이에요.**
+
+**features : 구현해야 할 기능이에요.**
 
 </aside>
 
@@ -38,6 +41,7 @@
     - 리액트 프로젝트 배포 (S3, vercel 등 자유)
 
 <aside>
+
 📌 **Requirement : 과제에 요구되는 사항이에요.**
 
 </aside>
@@ -56,7 +60,6 @@
     - 배포된 결과물에서는 `console.log()` 가 보이지 않도록 처리합니다.
     - `.env` 를 이용해서 API 서버의 URL 코드상에서 숨기도록 처리합니다. [완료]
 - (3) API 명세서 (프로젝트 완료 후 작성)
-- API 명세서는 API가 어떻게 작동하는지 설명하는 문서입니다. 여기서는 주어진 함수들에 대해 간단한 API 명세서를 작성해보겠습니다.
 
 1. **addTodo**
     - **URI**: `${process.env.REACT_APP_LOCAL_SERVER}/todos`
