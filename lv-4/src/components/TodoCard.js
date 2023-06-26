@@ -1,34 +1,20 @@
 import {useCallback} from "react";
 import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../redux/styles";
-import {useMutation, useQueryClient} from "react-query";
 import { deleteTodo,updateTodo,updateDoneTodo } from "../api/todos";
+import useMutate from "../hooks/useMutate";
 
 const TodoCard = ({todo}) => {
-  const queryClient = new useQueryClient()
-
-  const mutation_deleteTodo= useMutation(deleteTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
-  const mutation_updateTodo= useMutation(updateTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
-  const mutation_updateDoneTodo= useMutation(updateDoneTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
+  const mutation_deleteTodo= useMutate(deleteTodo,'todos')
+  const mutation_updateTodo= useMutate(updateTodo,'todos')
+  const mutation_updateDoneTodo= useMutate(updateDoneTodo,'todos')
 
   const delete_Todo=useCallback(()=>{
     mutation_deleteTodo.mutate(todo.id)
-  },[todo])
+  },[todo,mutation_deleteTodo])
 
   const update_DoneTodo=useCallback(()=>{
     mutation_updateDoneTodo.mutate(todo)
-  },[todo])
+  },[todo,mutation_updateDoneTodo])
 
   return (
     <ListWrapper>

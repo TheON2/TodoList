@@ -1,21 +1,14 @@
 import {useCallback} from "react";
 import useInput from "../hooks/useInput";
 import {Button, Form, Input, InputGroup, Label} from "../redux/styles";
-import {useMutation, useQueryClient} from "react-query";
 import {v4 as uuidv4} from 'uuid'
 import {addTodo} from "../api/todos";
+import useMutate from "../hooks/useMutate";
 
 const AddForm = () => {
   const [title,onChangeTitle,setTitle] = useInput('')
   const [content,onChangeContent,setContent] = useInput('')
-
-  const queryClient = new useQueryClient()
-
-  const mutation = useMutation(addTodo, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
+  const mutation = useMutate(addTodo,'todos')
 
   const add_Todo=useCallback((e)=>{
     if(title===''){
@@ -39,7 +32,7 @@ const AddForm = () => {
 
     setTitle('')
     setContent('')
-  },[title,content])
+  },[title,content,mutation,setTitle,setContent])
 
   return (
     <Form onSubmit={add_Todo}>
