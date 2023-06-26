@@ -1,21 +1,16 @@
 import React from 'react';
-import AddForm from "./components/AddForm";
-import TodoHeader from "./components/TodoHeader";
-import TodosList from "./components/TodosList";
-import {useSelector} from "react-redux";
-import {GlobalStyle, Layout} from "./redux/styles";
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import Main from "./pages/Main";
+import Detail from "./pages/Detail";
 
 const App = () => {
-  const {todos} = useSelector((state)=>state.todos)
   return (
-    <div id='root'>
-    <GlobalStyle />
-      <Layout>
-        <TodoHeader title={'My Todo List'} stack={'React'}/>
-        <AddForm/>
-        <TodosList todos={todos}/>
-      </Layout>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element=<Main/>/>
+        <Route path='/:id' element=<Detail/>/>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

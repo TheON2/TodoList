@@ -2,6 +2,7 @@ import {useCallback} from "react";
 import {useDispatch} from "react-redux";
 import {DELETE_TODOS_REQUEST, UPDATE_TODOS_REQUEST} from "../reducers/todos";
 import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../redux/styles";
+import {Link} from "react-router-dom";
 
 const TodoCard = ({todo}) => {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ const TodoCard = ({todo}) => {
   return (
     <ListWrapper>
       <TodoContainer>
+        <Link to={{
+          pathname: `/${todo.id}`
+        }}>자세하게 보기</Link>
         <div><h2 className="todo-title">{todo.title}</h2>
           <div>{todo.content}</div>
         </div>
