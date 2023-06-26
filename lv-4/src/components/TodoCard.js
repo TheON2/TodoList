@@ -2,6 +2,7 @@ import {useCallback} from "react";
 import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../redux/styles";
 import { deleteTodo,updateTodo,updateDoneTodo } from "../api/todos";
 import useMutate from "../hooks/useMutate";
+import {Link} from "react-router-dom";
 
 const TodoCard = ({todo}) => {
   const mutation_deleteTodo= useMutate(deleteTodo,'todos')
@@ -19,6 +20,9 @@ const TodoCard = ({todo}) => {
   return (
     <ListWrapper>
       <TodoContainer>
+        <Link to={{
+          pathname: `/${todo.id}`
+        }}>자세하게 보기</Link>
         <div><h2 className="todo-title">{todo.title}</h2>
           <div>{todo.content}</div>
         </div>
