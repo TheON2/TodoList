@@ -10,11 +10,11 @@ const getTodos = async () => {
 };
 
 const updateDoneTodo = async (todo) => {
-  await api.patch(`/todos/${todo.id}`,{done:!(todo.done)});
+  await api.patch(`/todos/${todo.id}/done`,{done:!(todo.done)});
 };
 
 const updateTodo = async (sendData) => {
-  await api.patch(`/todos/${sendData.id}`,{content:sendData.content});
+  await api.patch(`/todos/${sendData.id}/content`,{content:sendData.content});
 };
 
 const deleteTodo = async (todoId) => {
