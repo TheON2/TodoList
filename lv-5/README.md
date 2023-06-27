@@ -1,70 +1,41 @@
-# Getting Started with Create  React App
+# React 과제 Lv. 5
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<aside>
 
-## Available Scripts
+💡 **Goal : 로그인/회원가입 기능 추가하기**
 
-In the project directory, you can run:
+</aside>
 
-### `npm start`
+- 심화주차 과제 Lv.1에 로그인, 회원가입 기능을 추가해보세요.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<aside>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+⚙ **features : 구현해야 할 기능이에요.**
 
-### `npm test`
+</aside>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 로그인, 회원가입 페이지를 각각 구현합니다.
+- 아이디와 비밀번호가 모두 입력되지 않으면, API 요청을 보내지 않도록 합니다.
+- 서버의 에러를 `alert` 또는 직접 만든 모달 등을 통해 유저에게 표시합니다.
+    - id가 중복된 경우
+    - 존재하지 않는 아이디를 입력한 경우
+    - 비밀번호가 잘못된 경우
+- JWT의 유효시간이 만료된 경우, 유저에게 재로그인을 할 것을 표시합니다.
+- 로그인을 하지 않은 경우에는 `로그인/회원가입` 페이지만 접근 가능합니다.
+- 로그인을 이미 한 경우 `로그인/회원가입` 페이지는 접근 할 수 없습니다.
+- 로그아웃 기능을 구현합니다.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<aside>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🏃 **Challenge:** 도전해볼만한 `키워드`를 드립니다. 검색을 통해 각 키워드들이 어떤 기능인지 찾아보고 도전해보세요. (필수 ❌)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+</aside>
 
-### `npm run eject`
+- **Infinite Scroll 또는 Pagination**
+    - 할일 또는 댓글이 양이 많을 때, 모든 데이터를 한번에 불러오는 것이 아니라 스크롤이 가장 아래에 도달할때마다 부분적으로 데이터를 Fetching 하도록 구현해봅니다.
+- **Form Help Text**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  ![스크린샷 2022-08-03 오전 10.58.09.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e0fcf172-95f7-46bb-9e6b-6fa5cbca712a/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2022-08-03_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_10.58.09.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Form의 유효성을 체크하고, 유효성을 체크 하지 못했을 때 사용자에게 유효성을 체크 하지 못한 이유에 대해서 안내하는 기능을 구현해봅니다.
