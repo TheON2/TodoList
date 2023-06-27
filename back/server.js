@@ -19,8 +19,10 @@ mongoose.connect('mongodb+srv://sparta:test@cluster0.xi1pqvv.mongodb.net/dbspart
   .catch((err) => console.error(err));
 
 let Todo = require('./models/todo');
+let User = require('./models/user');
 
-let router = require('./routes')(app, Todo);
+let router = require('./routes/todos')(app, Todo);
+let router2 = require('./routes/user')(app, User);
 
 let server = app.listen(port, function () {
   console.log("Express server has started on port " + port)

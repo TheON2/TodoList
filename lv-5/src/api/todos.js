@@ -1,5 +1,6 @@
 import api from "../axios/api";
 
+//todos
 const addTodo = async (newTodo) => {
   await api.post(`/todos`, newTodo);
 };
@@ -10,15 +11,16 @@ const getTodos = async () => {
 };
 
 const updateDoneTodo = async (todo) => {
-  await api.patch(`/todos/${todo.id}/done`,{done:!(todo.done)});
+  await api.patch(`/todos/${todo.id}/done`, {done: !(todo.done)});
 };
 
 const updateTodo = async (sendData) => {
-  await api.patch(`/todos/${sendData.id}/content`,{content:sendData.content});
+  await api.patch(`/todos/${sendData.id}/content`, {content: sendData.content});
 };
 
 const deleteTodo = async (todoId) => {
   await api.delete(`/todos/${todoId}`);
 };
 
-export { getTodos, addTodo , updateTodo , updateDoneTodo , deleteTodo };
+
+export {getTodos, addTodo, updateTodo, updateDoneTodo, deleteTodo};
