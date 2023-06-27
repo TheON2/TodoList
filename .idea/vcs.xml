@@ -3,5 +3,9 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/../.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/TodoList-jsonserver" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/back" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/back/TodoList-jsonserver" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lv-4" vcs="Git" />
   </component>
 </project>
