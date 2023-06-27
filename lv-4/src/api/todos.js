@@ -1,24 +1,24 @@
-import axios from "axios";
+import api from "../axios/api";
 
 const addTodo = async (newTodo) => {
-  await axios.post(`/todos`, newTodo);
+  await api.post(`/todos`, newTodo);
 };
 
 const getTodos = async () => {
-  const response = await axios.get(`/todos`);
+  const response = await api.get(`/todos`);
   return response.data;
 };
 
 const updateDoneTodo = async (todo) => {
-  await axios.patch(`/todos/${todo.id}`,{done:!(todo.done)});
+  await api.patch(`/todos/${todo.id}`,{done:!(todo.done)});
 };
 
 const updateTodo = async (sendData) => {
-  await axios.patch(`/todos/${sendData.id}`,{content:sendData.content});
+  await api.patch(`/todos/${sendData.id}`,{content:sendData.content});
 };
 
 const deleteTodo = async (todoId) => {
-  await axios.delete(`/todos/${todoId}`);
+  await api.delete(`/todos/${todoId}`);
 };
 
 export { getTodos, addTodo , updateTodo , updateDoneTodo , deleteTodo };
