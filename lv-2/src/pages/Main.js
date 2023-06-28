@@ -1,4 +1,4 @@
-import {GlobalStyle, Layout} from "../redux/styles";
+import {GlobalStyle, Layout} from "../styles";
 import TodoHeader from "../components/TodoHeader";
 import AddForm from "../components/AddForm";
 import TodosList from "../components/TodosList";

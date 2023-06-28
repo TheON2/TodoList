@@ -1,5 +1,5 @@
 import TodoCard from "./TodoCard";
-import {ListContainer} from "../redux/styles";
+import {ListContainer} from "../styles";
 import styled from "styled-components";
 
 export const TodoContainer = styled.div`

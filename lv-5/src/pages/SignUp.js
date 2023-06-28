@@ -1,7 +1,6 @@
 import useInput from "../hooks/useInput";
 import useMutate from "../hooks/useMutate";
 import {addUser} from "../api/user";
-import {v4 as uuidv4} from "uuid";
 
 function Signup() {
   const [email, onChangeEmail] = useInput('');
@@ -22,7 +21,6 @@ function Signup() {
       email,
       password,
       nickName,
-      id: uuidv4(),
     };
 
     addUser_mutate.mutate(newUser)

@@ -1,5 +1,5 @@
 import {useCallback} from "react";
-import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../redux/styles";
+import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../styles";
 import { deleteTodo,updateDoneTodo } from "../api/todos";
 import useMutate from "../hooks/useMutate";
 import {Link} from "react-router-dom";

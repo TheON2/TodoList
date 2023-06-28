@@ -1,7 +1,7 @@
 import {useCallback} from "react";
 import {useDispatch} from "react-redux";
-import {DELETE_TODOS_REQUEST, UPDATE_TODOS_REQUEST} from "../reducers/todos";
-import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../redux/styles";
+import {DELETE_TODOS_REQUEST, UPDATE_TODOS_REQUEST} from "../redux/reducers/todos";
+import {ButtonSet, CompleteButton, DeleteButton, ListWrapper, TodoContainer} from "../styles";
 import {Link} from "react-router-dom";
 
 const TodoCard = ({todo}) => {

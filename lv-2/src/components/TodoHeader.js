@@ -1,4 +1,4 @@
-import {Container} from "../redux/styles";
+import {Container} from "../styles";
 
 const TodoHeader = ({title,stack}) =>{
   return (<Container>

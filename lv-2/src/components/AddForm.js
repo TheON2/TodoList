@@ -1,8 +1,8 @@
 import {useCallback} from "react";
 import {useDispatch} from "react-redux";
-import {ADD_TODOS_REQUEST} from "../reducers/todos";
+import {ADD_TODOS_REQUEST} from "../redux/reducers/todos";
 import useInput from "../hooks/useInput";
-import {Button, Form, Input, InputGroup, Label} from "../redux/styles";
+import {Button, Form, Input, InputGroup, Label} from "../styles";
 
 const AddForm = () => {
   const [title,onChangeTitle,setTitle] = useInput('')

@@ -1,19 +1,24 @@
 import useInput from "../hooks/useInput";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import React from "react";
-import {loginUser} from "../reducers/userSlice";
+import React, {useEffect} from "react";
+import {loginUser} from "../redux/reducers/userSlice";
+import useMutate from "../hooks/useMutate";
+import {userLogin} from "../api/user";
 
 const Login=()=>{
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const login_Mutate = useMutate(userLogin,'user',loginUser);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
+  useEffect(() => {
+    if (login_Mutate.isSuccess) {
+      navigate("/");
+    }
+  }, [login_Mutate.isSuccess, navigate]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`Email: ${email}, Password: ${password}`);
-    dispatch(loginUser({email:email, name:'hi'}));
-    navigate("/");
+    const user = {email,password}
+    login_Mutate.mutate(user)
   };
   const goSignUp = () =>{
     navigate("/SignUp");

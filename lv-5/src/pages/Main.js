@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useQuery} from "react-query";
 import {getTodos} from "../api/todos";
-import {GlobalStyle, Layout} from "../redux/styles";
+import {GlobalStyle, Layout} from "../styles";
 import TodoHeader from "../components/TodoHeader";
 import AddForm from "../components/AddForm";
 import TodosList from "../components/TodosList";
@@ -13,16 +13,18 @@ const Main = () => {
   const {isLoading, isError, data} = useQuery("todos", getTodos);
   const {user} = useSelector(state => state.user)
 
+  useEffect(() => {
+    if (!user.isLogged) {
+      navigate("/Login");
+    }
+  }, [user, navigate]);
+
   if (isLoading) {
     return <p>로딩중입니다....!</p>;
   }
 
   if (isError) {
     return <p>오류가 발생하였습니다...!</p>;
-  }
-
-  if (!user.isLogged) {
-    navigate("/Login");
   }
 
   return (

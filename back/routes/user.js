@@ -1,3 +1,7 @@
+const bcrypt = require('bcrypt')
+const {isNotLoggedIn, isLoggedIn} = require("./middlewares");
+const passport = require("passport");
+
 module.exports = function(app, User)
 {
   app.get('/user', async (req, res) => {
@@ -5,9 +9,9 @@ module.exports = function(app, User)
     res.json(user);
   });
 
-  app.get('/user/:id', async (req, res) => {
+  app.get('/user/:email', async (req, res) => {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await User.findOne({ email: req.params.email });
       if (!user) res.status(404).send("No user found");
       res.send(user);
     } catch (error) {
@@ -15,15 +19,58 @@ module.exports = function(app, User)
     }
   });
 
-  app.post('/user', async (req, res) => {
-    const newUser = new User(req.body);
-    const savedUser = await newUser.save();
+  app.post('/user',isNotLoggedIn, async (req, res,next) => {
+    try {
+      const exUser = await User.findOne({email: req.body.email});
+      if (exUser) {
+        return res.status(403).send("이미 사용중인 아이디입니다");
+      }
+    const hashedPassword = await bcrypt.hash(req.body.password, 12)
+    const user = new User({
+      email: req.body.email,
+      nickName: req.body.nickName,
+      password: hashedPassword,
+    })
+    const savedUser = await user.save();
     res.json(savedUser);
+  } catch(error){
+    console.error(error);
+    next(error)
+  }
   });
 
-  app.patch('/user/:id/done', async (req, res) => {
+  app.post("/user/login", isNotLoggedIn, (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        console.log(err);
+        return next(err);
+      }
+      if (info) {
+        return res.status(401).send(info.reason);
+      }
+      return req.login(user, async (loginErr) => {
+        if (loginErr) {
+          console.log(err);
+          return next(loginErr);
+        }
+        const loginUser = await User.findOne({email: req.body.email});
+        const userResponse = loginUser.toObject();
+        delete userResponse.password;
+        return res.status(200).json(userResponse);
+      });
+    })(req, res, next);
+  });
+
+  app.post("/user/logout", isLoggedIn, (req, res, next) => {
+    req.logout(() => {
+      req.session.destroy();
+      res.send("ok");
+    });
+  });
+
+  app.patch('/user/:email/done', async (req, res) => {
     try {
-      let user = await User.findOne({ id: req.params.id });
+      let user = await User.findOne({ email: req.params.email });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
@@ -35,9 +82,9 @@ module.exports = function(app, User)
     }
   });
 
-  app.patch('/user/:id/nickName', async (req, res) => {
+  app.patch('/user/:email/nickName', async (req, res) => {
     try {
-      let user = await User.findOne({ id: req.params.id });
+      let user = await User.findOne({ email: req.params.email });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
@@ -49,9 +96,9 @@ module.exports = function(app, User)
     }
   });
 
-  app.delete('/user/:id', async (req, res) => {
+  app.delete('/user/:email', async (req, res) => {
     try {
-      let user = await User.findOneAndDelete({ id: req.params.id });
+      let user = await User.findOneAndDelete({ email: req.params.email });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }

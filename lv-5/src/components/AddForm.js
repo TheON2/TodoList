@@ -1,6 +1,6 @@
 import {useCallback} from "react";
 import useInput from "../hooks/useInput";
-import {Button, Form, Input, InputGroup, Label} from "../redux/styles";
+import {Button, Form, Input, InputGroup, Label} from "../styles";
 import {v4 as uuidv4} from 'uuid'
 import {addTodo} from "../api/todos";
 import useMutate from "../hooks/useMutate";
