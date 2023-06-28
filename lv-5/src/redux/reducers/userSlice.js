@@ -4,7 +4,8 @@ const initialState = {
   user:{
     email:null,
     nickName:null,
-    isLogged:false
+    isLogged:false,
+    token:null,
   }
 }
 
@@ -13,13 +14,17 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      state.user.email=action.payload.email
-      state.user.nickName=action.payload.nickName
+      console.log(action.payload)
+      state.user.email=action.payload.userResponse.email
+      state.user.nickName=action.payload.userResponse.nickName
+      state.user.token=action.payload.token
       state.user.isLogged=true
+      console.log(state.user.token)
     },
     logOutUser: (state, action) => {
       state.user.email=null
       state.user.name=null
+      state.user.token=null
       state.user.isLogged=false
     },
   },
