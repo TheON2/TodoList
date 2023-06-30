@@ -3,7 +3,7 @@ import { deleteTodo,updateDoneTodo } from "../../api/todos";
 import useMutate from "../../hooks/useMutate";
 import {Link} from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
-import {ButtonSet, ListWrapper, TodoContainer} from "./style";
+import {ButtonSet, CardSet, ListWrapper, TodoContainer} from "./style";
 
 const TodoCard = ({todo}) => {
   const mutation_deleteTodo= useMutate(deleteTodo,'todos')
@@ -20,9 +20,9 @@ const TodoCard = ({todo}) => {
   return (
     <ListWrapper>
       <TodoContainer>
-        <Link to={{
-          pathname: `/${todo.id}`
-        }}>자세하게 보기</Link>
+          <Link to={{
+            pathname: `/${todo.id}`
+          }}>자세하게 보기</Link>
         <div><h2 className="todo-title">{todo.title}</h2>
           <div>{todo.content}</div>
         </div>

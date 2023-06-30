@@ -6,14 +6,16 @@ const TodosList = ({todos}) => {
     <ListContainer>
       <h2 className="list-title">Working.. 🔥</h2>
       <TodoContainer>
-      {todos.filter((a)=>a.done===false).map((todo)=>
+        {todos.filter((a) => a.done === false).map((todo) =>
+          <TodoCard key={todo.id} todo={todo}/>
+        )}
+      </TodoContainer>
+      <h2 className="list-title">Done..! 🎉</h2>
+    <TodoContainer>
+      {todos.filter((a) => a.done === true).map((todo) =>
         <TodoCard key={todo.id} todo={todo}/>
       )}
     </TodoContainer>
-      <h2 className="list-title">Done..! 🎉</h2>
-      {todos.filter((a)=>a.done===true).map((todo)=>
-        <TodoCard key={todo.id} todo={todo}/>
-      )}
     </ListContainer>
   )
 }

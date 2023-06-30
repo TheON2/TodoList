@@ -1,22 +1,26 @@
 import styled from "styled-components";
 
 export const ListWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   gap: 12px;
 `;
 
 export const TodoContainer = styled.div`
-  border: 4px solid teal;
   border-radius: 12px;
   padding: 12px 24px 24px;
   width: 270px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+  0 10px 10px rgba(0,0,0,0.22);
 `;
 
 export const ButtonSet = styled.div`
   display: flex;
   gap: 10px;
   margin-top: 24px;
+`;
+
+export const CardSet = styled.div`
+  height: 10%;
+  background-color: red;
 `;
 
 export const GenericButton = styled.button`

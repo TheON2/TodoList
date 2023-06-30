@@ -6,7 +6,7 @@ import AddForm from "../../components/AddForm/AddForm";
 import TodosList from "../../components/TodosList/TodosList";
 import {useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
-import {GlobalStyle, LayOut} from "./style";
+import {GlobalStyle, LayOut, MainContainer, TotalContainer} from "./style";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -30,11 +30,16 @@ const Main = () => {
   return (
     <div id='root'>
       <GlobalStyle/>
-      <LayOut>
-        <Header title={'My Todo List'} stack={'React'}/>
-        <AddForm/>
-        <TodosList todos={data}/>
-      </LayOut>
+        <LayOut>
+          <Header title={'My Todo List'} stack={'React'}/>
+            <AddForm/>
+          <MainContainer>
+            <TotalContainer>
+
+            </TotalContainer>
+            <TodosList todos={data}/>
+          </MainContainer>
+        </LayOut>
     </div>
   );
 };
