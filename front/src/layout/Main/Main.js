@@ -7,6 +7,7 @@ import TodosList from "../../components/TodosList/TodosList";
 import {useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {GlobalStyle, LayOut, MainContainer, TotalContainer} from "./style";
+import Profile from "../../components/Profile/Profile";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Main = () => {
             <AddForm/>
           <MainContainer>
             <TotalContainer>
-
+              <Profile/>
             </TotalContainer>
             <TodosList todos={data}/>
           </MainContainer>
