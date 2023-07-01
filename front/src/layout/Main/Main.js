@@ -4,21 +4,29 @@ import {getTodos} from "../../api/todos";
 import Header from "../Header/Header";
 import AddForm from "../../components/AddForm/AddForm";
 import TodosList from "../../components/TodosList/TodosList";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 import {GlobalStyle, LayOut, MainContainer, TotalContainer} from "./style";
 import Profile from "../../components/Profile/Profile";
+import {getAuthToken} from "../../api/user";
+import {authUser} from "../../redux/reducers/userSlice";
 
 const Main = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {isLoading, isError, data} = useQuery("todos", getTodos);
   const {user} = useSelector(state => state.user)
+  const result = useQuery('user',getAuthToken)
+  const tokenSuccess = result.isSuccess
 
   useEffect(() => {
-    if (!user.isLogged) {
+    if (tokenSuccess && user.token===null) {
+      dispatch(authUser(result.data));
+    }
+    if (user?.token === undefined) {
       navigate("/Login");
     }
-  }, [user, navigate]);
+  }, [user,tokenSuccess, navigate]);
 
   if (isLoading) {
     return <p>로딩중입니다....!</p>;
@@ -32,7 +40,7 @@ const Main = () => {
     <div id='root'>
       <GlobalStyle/>
         <LayOut>
-          <Header title={'My Todo List'} stack={'React'}/>
+          <Header title={'My Todo List'} stack={'React'} user={user}/>
             <AddForm/>
           <MainContainer>
             <TotalContainer>

@@ -1,4 +1,7 @@
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {unauthUser} from "../redux/reducers/userSlice";
+import store from "../redux/config/configStore";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_LOCAL_SERVER,
@@ -14,6 +17,17 @@ instance.interceptors.request.use(
   function (error) {
     // 오류 요청을 보내기 전 수행
     console.log("인터셉트 요청 오류!");
+    return Promise.reject(error);
+  }
+);
+
+instance.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 400) {
+        console.log('토큰이 만료 되었습니다.')
+        store.dispatch(unauthUser())
+    }
     return Promise.reject(error);
   }
 );

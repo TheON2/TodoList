@@ -10,6 +10,7 @@ export const TodoContainer = styled.div`
   width: 270px;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25),
   0 10px 10px rgba(0,0,0,0.22);
+  height: 200px;
 `;
 
 export const ButtonSet = styled.div`

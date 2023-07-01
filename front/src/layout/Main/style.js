@@ -14,14 +14,15 @@ export const GlobalStyle = createGlobalStyle`
 
 export const MainContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 400px 1fr;
+  grid-template-rows: 1200px 1fr;
 `;
 
 export const TotalContainer = styled.div`
   border-radius: 12px;
   padding: 12px 24px 24px;
   width: 270px;
-  min-height: 50%;
+  height: 60%;
   box-shadow: 0 14px 28px rgba(0,0,0,0.25),
   0 10px 10px rgba(0,0,0,0.22);
   margin-top: 50px;
@@ -31,5 +32,6 @@ export const TotalContainer = styled.div`
 export const LayOut = styled.div`
   margin: 0 auto;
   max-width: 1200px;
-  min-width: 800px
+  min-width: 800px;
+  height: 800px;
 `;

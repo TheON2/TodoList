@@ -1,7 +1,7 @@
 import {useMutation, useQueryClient} from "react-query";
 import {useDispatch} from "react-redux";
 
-const useMutate = (action ,queryKey ,disAction ) => {
+const useMutate = (action ,queryKey ,disAction) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   const mutation = useMutation(action, {
