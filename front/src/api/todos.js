@@ -11,13 +11,22 @@ const getTodos = async () => {
 };
 
 const getTodosWorking = async (page) => {
-  console.log(page)
-  const response = await api.post(`/todos/working`, {page:page});
+  const response = await api.post(`/todos/working/infinite`, {page:page});
   return response.data;
 };
 
 const getTodosDone = async (page) => {
-  const response = await api.post(`/todos/done`,{page:page});
+  const response = await api.post(`/todos/done/infinite`,{page:page});
+  return response.data;
+};
+
+const getTodosWorkingPaging = async (page) => {
+  const response = await api.post(`/todos/working/pagination`, {page:page});
+  return response.data;
+};
+
+const getTodosDonePaging = async (page) => {
+  const response = await api.post(`/todos/done/pagination`,{page:page});
   return response.data;
 };
 
@@ -34,4 +43,4 @@ const deleteTodo = async (todoId) => {
 };
 
 
-export {getTodos, addTodo, updateTodo, updateDoneTodo, deleteTodo ,getTodosDone ,getTodosWorking};
+export {getTodos, addTodo, updateTodo, updateDoneTodo, deleteTodo ,getTodosDone ,getTodosWorking ,getTodosWorkingPaging ,getTodosDonePaging};

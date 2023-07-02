@@ -11,7 +11,7 @@ module.exports = function(app, Todo)
         }
     });
 
-    app.post('/todos/working', async (req, res) => {
+    app.post('/todos/working/infinite', async (req, res) => {
         try {
             const page = req.body.page;
             console.log(page)
@@ -26,7 +26,7 @@ module.exports = function(app, Todo)
         }
     });
 
-    app.post('/todos/done', async (req, res) => {
+    app.post('/todos/done/infinite', async (req, res) => {
         try {
             const page = req.body.page;
             console.log(page)
@@ -40,6 +40,39 @@ module.exports = function(app, Todo)
             res.status(500).json({message: "Server error"});
         }
     });
+
+  app.post('/todos/working/pagination', async (req, res) => {
+    try {
+      const page = req.body.page;
+      console.log(page)
+      const size = 8; // 한 페이지당 로드될 아이템의 수
+      const workingTodos = await Todo.find({done: false})
+        .skip(page * size)
+        .limit(size);
+      const Todos = await Todo.find({done: false})
+      console.log(Todo)
+
+      res.json({ todos:workingTodos, pageNum:Math.ceil(Todos.length/8)});
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({message: "Server error"});
+    }
+  });
+
+  app.post('/todos/done/pagination', async (req, res) => {
+    try {
+      const page = req.body.page;
+      console.log(page)
+      const size = 8; // 한 페이지당 로드될 아이템의 수
+      const doneTodos = await Todo.find({done: true})
+        .skip(page * size)
+        .limit(size);
+      res.json([...doneTodos]);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({message: "Server error"});
+    }
+  });
 
     app.post('/todos', async (req, res) => {
         const newTodo = new Todo(req.body);
