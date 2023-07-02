@@ -1,8 +1,9 @@
-import {combineReducers, configureStore, createStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import user from "../reducers/userSlice";
+import todos from "../reducers/todosSlice";
 
 const rootReducer = combineReducers({
-  user
+  user,todos
 });
 
 // 2. create store

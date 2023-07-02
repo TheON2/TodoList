@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ListContainer = styled.div`
   display: grid;
-  align-items: start;
+  align-content: start;
   width: 100%;
   height: 100%;
   overflow: auto;

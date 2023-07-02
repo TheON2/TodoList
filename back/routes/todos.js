@@ -1,8 +1,39 @@
 module.exports = function(app, Todo)
 {
     app.get('/todos', async (req, res) => {
-        const todos = await Todo.find({});
-        res.json(todos);
+        try {
+            const doneTodos = await Todo.find({done: true}).limit(4);
+            const notDoneTodos = await Todo.find({done: false}).limit(4);
+            res.json([...doneTodos, ...notDoneTodos]);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({message: "Server error"});
+        }
+    });
+
+    app.get('/todos/working', async (req, res) => {
+        try {
+            const page = parseInt(req.query.page) || 0;
+            const size = 3; // 한 페이지당 로드될 아이템의 수
+            const doneTodos = await Todo.find({done: true})
+              .skip(page * size)
+              .limit(size);
+            res.json([...doneTodos]);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({message: "Server error"});
+        }
+    });
+
+    app.get('/todos/done', async (req, res) => {
+        try {
+            const doneTodos = await Todo.find({done: true}).limit(4);
+            const notDoneTodos = await Todo.find({done: false}).limit(4);
+            res.json([...doneTodos, ...notDoneTodos]);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({message: "Server error"});
+        }
     });
 
     app.post('/todos', async (req, res) => {
