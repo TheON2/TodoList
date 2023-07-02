@@ -24,7 +24,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => response,
   error => {
-    if (error.response.status === 400) {
+    if (error.response.status === 502 || error.response.status === 501) {
         console.log('토큰이 만료 되었습니다.')
         store.dispatch(unauthUser())
     }

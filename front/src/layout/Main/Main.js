@@ -18,15 +18,15 @@ const Main = () => {
   const {user} = useSelector(state => state.user)
   const result = useQuery('user',getAuthToken)
   const tokenSuccess = result.isSuccess
+  const tokenError = result.isError
 
   useEffect(() => {
-    if (tokenSuccess && user.token===null) {
+    if (tokenSuccess) {
       dispatch(authUser(result.data));
-    }
-    if (user?.token === undefined) {
+    }else if(tokenError||user.token===undefined){
       navigate("/Login");
     }
-  }, [user,tokenSuccess, navigate]);
+  }, [user,tokenSuccess,tokenError, navigate]);
 
   if (isLoading) {
     return <p>로딩중입니다....!</p>;

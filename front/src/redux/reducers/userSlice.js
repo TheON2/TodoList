@@ -6,6 +6,9 @@ const initialState = {
     nickName:null,
     isLogged:false,
     token:null,
+    logInLoading:false,
+    logInDone:false,
+    logInError:false,
   }
 }
 
