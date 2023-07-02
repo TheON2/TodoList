@@ -1,7 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-  todos: []
+  todos: [],
+  hasMoreTodos:true,
 }
 
 const todosSlice = createSlice({
@@ -9,13 +10,17 @@ const todosSlice = createSlice({
   initialState,
   reducers: {
     loadTodos: (state, action) => {
-      state.todos.todos = state.todos.todos.concat(action.payload)
+      console.log(state.todos)
+      state.todos = state.todos.concat(action.payload)
+      state.hasMoreTodos = action.payload.length === 10
     },
     loadTodosWorking: (state, action) => {
-      state.todos.todos = state.todos.todos.concat(action.payload)
+      state.todos = state.todos.concat(action.payload)
+      state.hasMoreTodos = action.payload.length === 10
     },
     loadTodosDone: (state, action) => {
-      state.todos.todos = state.todos.todos.concat(action.payload)
+      state.todos = state.todos.concat(action.payload)
+      state.hasMoreTodos = action.payload.length === 10
     },
   },
 })

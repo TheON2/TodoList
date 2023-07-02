@@ -10,6 +10,17 @@ const getTodos = async () => {
   return response.data;
 };
 
+const getTodosWorking = async (page) => {
+  console.log(page)
+  const response = await api.post(`/todos/working`, {page:page});
+  return response.data;
+};
+
+const getTodosDone = async (page) => {
+  const response = await api.post(`/todos/done`,{page:page});
+  return response.data;
+};
+
 const updateDoneTodo = async (todo) => {
   await api.patch(`/todos/${todo.id}/done`, {done: !(todo.done)});
 };
@@ -23,4 +34,4 @@ const deleteTodo = async (todoId) => {
 };
 
 
-export {getTodos, addTodo, updateTodo, updateDoneTodo, deleteTodo};
+export {getTodos, addTodo, updateTodo, updateDoneTodo, deleteTodo ,getTodosDone ,getTodosWorking};
