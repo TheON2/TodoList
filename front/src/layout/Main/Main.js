@@ -19,7 +19,7 @@ const Main = () => {
   const { isError:tokenError, data:userData ,isSuccess:tokenSuccess} = useQuery('user',getAuthToken)
 
   useEffect(() => {
-    if (tokenSuccess) {
+    if(tokenSuccess) {
       dispatch(authUser(userData));
     }else if(tokenError||user.token===undefined){
       navigate("/Login");

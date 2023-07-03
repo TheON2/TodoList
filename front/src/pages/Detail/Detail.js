@@ -11,7 +11,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const params = useParams();
   const {data} = useQuery("todos", getTodos);
-  const todo = data.find((todo) => todo.id === params.id)
+  const todo = data.todos.find((todo) => todo.id === params.id)
   const [onUpdate,setOnUpdate]=useState(false)
 
   useEffect(() => {
