@@ -46,6 +46,16 @@ const todosSlice = createSlice({
       state.viewMode=1
       state.viewMethod=1
     },
+    TodoDelete: (state, action) => {
+      state.todos = state.todos.filter(todo => todo.id !== action.payload);
+    },
+    toggleDone: (state, action) => {
+      state.todos = state.todos.map(todo =>
+        todo.id === action.payload
+          ? {...todo, done: !todo.done}
+          : todo
+      );
+    },
     changeViewMode: (state, action) => {
       state.todos = []
       state.viewMode = action.payload
@@ -62,6 +72,6 @@ const todosSlice = createSlice({
   },
 })
 
-export const {loadTodos,loadTodosWorking,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode} = todosSlice.actions
+export const {loadTodos,loadTodosWorking,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
 
 export default todosSlice.reducer

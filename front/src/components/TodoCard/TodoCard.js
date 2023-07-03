@@ -4,17 +4,20 @@ import useMutate from "../../hooks/useMutate";
 import {Link} from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import {ButtonSet, CardSet, ListWrapper, TodoContainer} from "./style";
+import {useDispatch} from "react-redux";
+import {TodoDelete} from "../../redux/reducers/todosSlice";
 
 const TodoCard = ({todo}) => {
+  const dispatch = useDispatch()
   const mutation_deleteTodo= useMutate(deleteTodo,'todos')
   const mutation_updateDoneTodo= useMutate(updateDoneTodo,'todos')
-
   const delete_Todo=useCallback(()=>{
     mutation_deleteTodo.mutate(todo.id)
+    dispatch(TodoDelete(todo.id))
   },[todo,mutation_deleteTodo])
-
   const update_DoneTodo=useCallback(()=>{
     mutation_updateDoneTodo.mutate(todo)
+    dispatch(TodoDelete(todo.id))
   },[todo,mutation_updateDoneTodo])
 
   return (
