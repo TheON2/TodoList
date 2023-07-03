@@ -39,12 +39,12 @@ const AddForm = () => {
   return (
     <Form>
       <InputGroup>
-        <Label>Todo Title</Label>
+        <Label>Title</Label>
         <Input value={title} onChange={onChangeTitle} />
         <Label>Content</Label>
         <InputContent value={content} onChange={onChangeContent} />
       </InputGroup>
-      <CustomButton theme={'type1'} size={'medium'} onClick={add_Todo}>AddTodo</CustomButton>
+      <CustomButton theme={'type1'} size={'medium'} onClick={add_Todo}>Todo!</CustomButton>
     </Form>
   );
 };

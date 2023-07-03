@@ -11,6 +11,7 @@ export const Button = styled.button`
   cursor: pointer;
   border: none; // 테두리 없앰
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); // 그림자 추가
+  font-weight: bold;
   
   width: ${props => props.size === 'large' ? '200px' :
   props.size === 'medium' ? '130px' :
@@ -20,7 +21,7 @@ export const Button = styled.button`
     props.size === 'small' ? '40px' : '30px'};
 
   color: ${props => props.theme === 'type1' ? 'white' :
-  props.theme === 'type2' ? 'skyblue' : 'black'};
+  props.theme === 'type2' ? 'white' : 'black'};
 
   background: ${props => props.theme === 'type1' ? 'skyblue' :
   props.theme === 'type2' ? '#d63031' : 'white'};
