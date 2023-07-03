@@ -135,9 +135,12 @@ const TodosList = ({todos}) => {
       </>}
       { viewMode === 3 && viewMethod === 1 &&
       <>
-        <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}>인피</button>
-        <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
-        <h2 className="list-title" onClick={onChangeAll}>Done..! 🎉</h2>
+        <h2 className="list-title" style={{display: 'flex'}} onClick={onChangeAll}>Done..! 🎉
+          <span style={{marginLeft: 'auto'}}>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}>인피</button>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
+          </span>
+        </h2>
         <TodoContainer>
           {todolist.map((todo) =>
             <TodoCard key={todo.id} todo={todo}/>
@@ -145,10 +148,12 @@ const TodosList = ({todos}) => {
         </TodoContainer></>}
       { viewMode === 3 && viewMethod === 2 &&
       <>
-        <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}>인피</button>
-        <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
-        <Pagination page={pageNum}/>
-        <h2 className="list-title" onClick={onChangeAll}>Done..! 🎉</h2>
+        <h2 className="list-title" style={{display: 'flex'}} onClick={onChangeAll}>Done..! 🎉
+          <span style={{marginLeft: 'auto'}}>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}>인피</button>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
+          </span>
+        </h2>
         <TodoContainer>
           {todolist.map((todo) =>
             <TodoCard key={todo.id} todo={todo}/>
