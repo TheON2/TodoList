@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link as OriginalLink } from 'react-router-dom';
 
 export const ListWrapper = styled.div`
   gap: 12px;
@@ -30,6 +31,15 @@ export const GenericButton = styled.button`
   cursor: pointer;
   height: 40px;
   width: 50%;
+`;
+export const StyledLink = styled(OriginalLink)`
+  color: darkgreen;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: lightgreen;
+  }
 `;
 
 export const DeleteButton = styled(GenericButton)`

@@ -39,12 +39,12 @@ const AddForm = () => {
   return (
     <Form>
       <InputGroup>
-        <Label>제목</Label>
+        <Label>Todo Title</Label>
         <Input value={title} onChange={onChangeTitle} />
-        <Label>내용</Label>
+        <Label>Content</Label>
         <InputContent value={content} onChange={onChangeContent} />
       </InputGroup>
-      <CustomButton theme={'type1'} size={'medium'} onClick={add_Todo}>추가하기</CustomButton>
+      <CustomButton theme={'type1'} size={'medium'} onClick={add_Todo}>AddTodo</CustomButton>
     </Form>
   );
 };
