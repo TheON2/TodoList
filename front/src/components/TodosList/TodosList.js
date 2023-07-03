@@ -86,7 +86,9 @@ const TodosList = ({todos}) => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [handleScroll]);
+  }, [handleScroll]); //지금 윈도우의 스크롤이 어디인지 + 지금 도큐먼트의 높이값이
+  //설정높이보다 클때 api를 부른다. useeffect의 조건문 처리로 디바운스 없이 리팩토링
+  //리액트쿼리의 옵션으로도 찾아볼것
 
   return (
     <ListContainer onScroll={handleScroll}>
