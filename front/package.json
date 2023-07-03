@@ -48,6 +48,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ],
-    "proxy": "http://localhost:3001"
+    "proxy": "https://todolistserverdw-be953d45b082.herokuapp.com/"
   }
 }

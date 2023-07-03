@@ -1,10 +1,16 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Button = styled.button`
+  display: inline-block;
   font-size: 1em;
-  margin: 0.25em;
+  margin: 0.5em;
   padding: 0.25em 1em;
-  border-radius: 3px;
+  border-radius: 50px; // 둥근 테두리를 위해 변경
+  transition: all 0.2s ease-in-out;
+  outline: none;
+  cursor: pointer;
+  border: none; // 테두리 없앰
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); // 그림자 추가
   
   width: ${props => props.size === 'large' ? '200px' :
   props.size === 'medium' ? '130px' :
@@ -18,7 +24,14 @@ export const Button = styled.button`
 
   background: ${props => props.theme === 'type1' ? 'skyblue' :
   props.theme === 'type2' ? '#d63031' : 'white'};
-  
-  border: ${props => props.border === 'type1' ? '4px solid skyblue' :
-  props.border === 'type2' ? '4px solid black' : 'black'};
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+  }
+
+  &:active {
+    transform: scale(1.0);
+    box-shadow: none;
+  }
 `;

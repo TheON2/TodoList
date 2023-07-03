@@ -25,6 +25,14 @@ export const Input = styled.input`
   width: 240px;
 `;
 
+export const InputContent = styled.input`
+  border: none;
+  border-radius: 12px;
+  height: 40px;
+  padding: 0 12px;
+  width: 550px;
+`;
+
 export const Button = styled.button`
   background-color: teal;
   border: none;

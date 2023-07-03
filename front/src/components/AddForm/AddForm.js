@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid'
 import {addTodo} from "../../api/todos";
 import useMutate from "../../hooks/useMutate";
 import CustomButton from "../CustomButton/CustomButton";
-import {Form, Input, InputGroup, Label} from "./style";
+import {Form, Input, InputContent, InputGroup, Label} from "./style";
 
 const AddForm = () => {
   const [title,onChangeTitle,setTitle] = useInput('')
@@ -41,7 +41,7 @@ const AddForm = () => {
         <Label>제목</Label>
         <Input value={title} onChange={onChangeTitle} />
         <Label>내용</Label>
-        <Input value={content} onChange={onChangeContent} />
+        <InputContent value={content} onChange={onChangeContent} />
       </InputGroup>
       <CustomButton theme={'type1'} size={'medium'} onClick={add_Todo}>추가하기</CustomButton>
     </Form>
