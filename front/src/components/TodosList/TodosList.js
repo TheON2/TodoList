@@ -154,6 +154,7 @@ const TodosList = ({todos}) => {
             <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
           </span>
         </h2>
+        <Pagination page={pageNum}/>
         <TodoContainer>
           {todolist.map((todo) =>
             <TodoCard key={todo.id} todo={todo}/>
