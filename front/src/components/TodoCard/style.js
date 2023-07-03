@@ -33,10 +33,10 @@ export const GenericButton = styled.button`
   width: 50%;
 `;
 export const StyledLink = styled(OriginalLink)`
-  color: darkgreen;
+  color: gray;
   text-decoration: none;
   transition: color 0.3s ease-in-out;
-
+  font-weight: bold;
   &:hover {
     color: lightgreen;
   }
