@@ -5,11 +5,12 @@ import {addTodo} from "../../api/todos";
 import useMutate from "../../hooks/useMutate";
 import CustomButton from "../CustomButton/CustomButton";
 import {Form, Input, InputContent, InputGroup, Label} from "./style";
+import {resetTodos} from "../../redux/reducers/todosSlice";
 
 const AddForm = () => {
   const [title,onChangeTitle,setTitle] = useInput('')
   const [content,onChangeContent,setContent] = useInput('')
-  const mutation = useMutate(addTodo,'todos')
+  const mutation = useMutate(addTodo,'todos',resetTodos)
 
   const add_Todo=useCallback((e)=>{
     if(title===''){
