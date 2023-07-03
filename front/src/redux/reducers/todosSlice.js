@@ -6,6 +6,8 @@ const initialState = {
   viewMode:1,
   viewMethod:1,
   page:1,
+  haveWorking:0,
+  haveDone:0,
 }
 
 const todosSlice = createSlice({
@@ -53,6 +55,9 @@ const todosSlice = createSlice({
       state.todos = []
       state.viewMethod = action.payload
       state.hasMoreTodos=true
+    },
+    authTodos: (state, action) => {
+      state.todos = state.todos.concat(action.payload)
     },
   },
 })

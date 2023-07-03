@@ -28,7 +28,9 @@ module.exports = function(app, User)
     try {
       const user = await User.findOne({ email: req.params.email });
       if (!user) res.status(404).send("No user found");
-      res.send(user);
+      const userResponse = user.toObject();
+      delete userResponse.password;
+      res.send(userResponse);
     } catch (error) {
       res.status(500).send(error);
     }
@@ -84,6 +86,7 @@ module.exports = function(app, User)
   app.post("/user/logout", (req, res, next) => {
     req.logout(() => {
       req.session.destroy();
+      res.cookie('token', '', { expires: new Date(0) });
       res.send("ok");
     });
   });

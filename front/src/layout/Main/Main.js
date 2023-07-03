@@ -16,13 +16,11 @@ const Main = () => {
   const dispatch = useDispatch();
   const {isLoading, isError, data} = useQuery("todos", getTodos);
   const {user} = useSelector(state => state.user)
-  const result = useQuery('user',getAuthToken)
-  const tokenSuccess = result.isSuccess
-  const tokenError = result.isError
+  const { isError:tokenError, data:userData ,isSuccess:tokenSuccess} = useQuery('user',getAuthToken)
 
   useEffect(() => {
     if (tokenSuccess) {
-      dispatch(authUser(result.data));
+      dispatch(authUser(userData));
     }else if(tokenError||user.token===undefined){
       navigate("/Login");
     }
@@ -44,9 +42,9 @@ const Main = () => {
             <AddForm/>
           <MainContainer>
             <TotalContainer>
-              <Profile/>
+              <Profile nickName={user.nickName} wokringCount={data.doneTodosCount} doneCount={data.notDoneTodosCount}/>
             </TotalContainer>
-            <TodosList todos={data}/>
+            <TodosList todos={data.Todos}/>
           </MainContainer>
         </LayOut>
     </div>
