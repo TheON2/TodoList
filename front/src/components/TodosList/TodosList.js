@@ -13,16 +13,27 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {debounce, throttle} from "lodash";
 import Pagination from "../Pagination/Pagination";
+import {useMutation, useQueryClient} from "react-query";
+import {useInView} from "react-intersection-observer";
 
 const TodosList = ({todos}) => {
   const Todos_Mutate = useMutate(getTodos,'todos',loadTodos)
-  const workingTodos_Mutate = useMutate(getTodosWorking,'todos',loadTodosWorking)
+  // const workingTodos_Mutate = useMutate(getTodosWorking,'todos',loadTodosWorking)
   const doneTodos_Mutate = useMutate(getTodosDone,'todos',loadTodosDone)
   const workingTodosPage_Mutate = useMutate(getTodosWorkingPaging,'todos',loadTodosPaging)
   const doneTodosPage_Mutate = useMutate(getTodosDonePaging,'todos',loadTodosPaging)
   const dispatch = useDispatch()
   const { hasMoreTodos, todos: todolist, page: pageNum,viewMode,viewMethod,haveNew } = useSelector(state => state.todos);
   const [page,setPage] = useState(0)
+  const [ref, inView] = useInView();
+
+  const queryClient = useQueryClient();
+  const {mutate:workingTodos_Mutate, isLoading:workingLoading} = useMutation(getTodosWorking, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries('todos');
+      dispatch(loadTodosWorking(data))
+    },
+  });
 
   const onChangeAll = useCallback(()=>{
     setPage(0)
@@ -53,7 +64,7 @@ const TodosList = ({todos}) => {
       if(viewMethod===1){
         if(viewMode===2){
           console.log(page)
-          workingTodos_Mutate.mutate(page)
+          workingTodos_Mutate(page)
           setPage(page+1)
         }else if(viewMode===3){
           doneTodos_Mutate.mutate(page)
@@ -70,13 +81,13 @@ const TodosList = ({todos}) => {
     }
   },[viewMode,viewMethod,haveNew])
 
-  const handleScroll = debounce(() => {
+  const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    if (scrollHeight - scrollTop === clientHeight) {
+    if (scrollHeight - scrollTop === clientHeight && !workingLoading) {
       if(hasMoreTodos){
         if(viewMethod===1){
           if(viewMode===2){
-            workingTodos_Mutate.mutate(page)
+            workingTodos_Mutate(page)
             setPage(page+1)
           }else if(viewMode===3){
             doneTodos_Mutate.mutate(page)
@@ -85,19 +96,25 @@ const TodosList = ({todos}) => {
         }
       }
     }
-  }, 300);
+  };
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [handleScroll]); //지금 윈도우의 스크롤이 어디인지 + 지금 도큐먼트의 높이값이
-  //설정높이보다 클때 api를 부른다. useeffect의 조건문 처리로 디바운스 없이 리팩토링
-  //리액트쿼리의 옵션으로도 찾아볼것
+  useEffect(
+    () => {
+      if (inView && hasMoreTodos && !workingLoading) {
+        if(viewMethod===1){
+          if(viewMode===2){
+            workingTodos_Mutate(page)
+            setPage(page+1)
+          }else if(viewMode===3){
+            doneTodos_Mutate.mutate(page)
+            setPage(page+1)
+          }
+        }
+      }
+    },[inView, hasMoreTodos, workingLoading, page]);
 
   return (
-    <ListContainer onScroll={handleScroll}>
+    <ListContainer>
       { viewMode === 1 &&
         <>
       <h2 className="list-title" onClick={()=>{onChangeViewMode(2)}}>Working.. 🔥</h2>
@@ -125,6 +142,7 @@ const TodosList = ({todos}) => {
             <TodoCard key={todo.id} todo={todo}/>
           )}
         </TodoContainer>
+        <div ref={hasMoreTodos && !workingLoading ? ref : undefined} />
        </>}
       { viewMode === 2 && viewMethod === 2 &&
       <>
@@ -140,6 +158,7 @@ const TodosList = ({todos}) => {
             <TodoCard key={todo.id} todo={todo}/>
           )}
         </TodoContainer>
+        <div ref={hasMoreTodos && !workingLoading ? ref : undefined} />
       </>}
       { viewMode === 3 && viewMethod === 1 &&
       <>
