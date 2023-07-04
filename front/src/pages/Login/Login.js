@@ -1,9 +1,9 @@
 import useInput from "../../hooks/useInput";
 import {useNavigate} from "react-router-dom";
 import React, {useCallback, useEffect} from "react";
-import {loginUser} from "../../redux/reducers/userSlice";
+import {authUser, loginUser} from "../../redux/reducers/userSlice";
 import useMutate from "../../hooks/useMutate";
-import {userLogin} from "../../api/user";
+import {getAuthToken, userLogin} from "../../api/user";
 import { FaFacebookF,FaGoogle } from "react-icons/fa6";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import {
@@ -15,20 +15,33 @@ import {
   LoginContainer,
   SocialContainer
 } from "./style";
+import {useQuery} from "react-query";
+import {useDispatch, useSelector} from "react-redux";
 
 const Login=()=>{
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const login_Mutate = useMutate(userLogin,'user',loginUser);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
   const [confirMessage, onChangeConfirmMessage, setComfirmMessage] = useInput('');
   const [login, onLogin,setLogin] = useInput(false);
+  const {user} = useSelector(state => state.user)
+  const { isError:tokenError, data:userData ,isSuccess:tokenSuccess} = useQuery('user',getAuthToken)
 
   const checkLogin =useCallback(()=>{
     const pattern = /^[^@]+@[^@]+$/;
     if(pattern.test(email)&&password.length>=1) setLogin(true)
     else setLogin(false)
   },[email,password,login]);
+
+  useEffect(() => {
+    if(tokenSuccess) {
+      dispatch(authUser(userData));
+    }else if(tokenError||user.token===undefined){
+      navigate("/Login");
+    }
+  }, [user,tokenSuccess,tokenError, navigate]);
 
   useEffect(() => {
     if (login_Mutate.isSuccess) {

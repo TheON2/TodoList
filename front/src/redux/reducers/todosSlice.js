@@ -19,6 +19,9 @@ const todosSlice = createSlice({
       console.log(state.todos)
       state.todos = action.payload.Todos
     },
+    loadTodo: (state, action) => {
+      state.todos = state.todos.concat(action.payload)
+    },
     loadTodosWorking: (state, action) => {
       state.todos = state.todos.concat(action.payload)
       state.hasMoreTodos = action.payload.length === 10
@@ -78,6 +81,6 @@ const todosSlice = createSlice({
   },
 })
 
-export const {loadTodos,loadTodosWorking,trueHaveNew,falseHaveNew,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
+export const {loadTodos,loadTodo,loadTodosWorking,trueHaveNew,falseHaveNew,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
 
 export default todosSlice.reducer

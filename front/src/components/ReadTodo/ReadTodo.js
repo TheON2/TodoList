@@ -11,7 +11,7 @@ const ReadTodo = ({todo,toggleUpdate}) =>{
           <h1>{todo?.title}</h1>
         </TitleContainer>
       </div>
-      <Container2>{todo?.content}</Container2>
+      <Container2><h4>{todo?.content}</h4></Container2>
       <div>
           <CustomButton theme={'type1'} size={'medium'} onClick={toggleUpdate}>수정하기</CustomButton>
       </div>

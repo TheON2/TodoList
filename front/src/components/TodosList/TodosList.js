@@ -8,7 +8,7 @@ import {
   changeViewMode, falseHaveNew,
   loadTodos, loadTodosDone,
   loadTodosPaging, loadTodosWorking,
-  resetTodos,
+  resetTodos, trueHaveNew,
 } from "../../redux/reducers/todosSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {debounce, throttle} from "lodash";
@@ -27,6 +27,7 @@ const TodosList = ({todos}) => {
   const onChangeAll = useCallback(()=>{
     setPage(0)
     dispatch(resetTodos())
+    dispatch(trueHaveNew())
   },[])
   const onChangeViewMode = useCallback((num)=>{
     console.log(viewMode,num)

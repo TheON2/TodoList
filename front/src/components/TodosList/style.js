@@ -14,6 +14,8 @@ const IconButton = styled.button`
 
 export const ListContainer = styled.div`
   display: grid;
+  grid-column: 3;
+  grid-row: 1;
   align-content: start;
   width: 100%;
   height: 100%;

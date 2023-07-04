@@ -1,22 +1,33 @@
 import styled from "styled-components";
 
+
+export const TextArea = styled.textarea`
+  align-items: center;
+  border: 1px #ddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  width: 300%;
+  resize: none;
+`;
+
 export const Container2 = styled.div`
-  background-color: white;
+  background-color: whitesmoke;
   border-radius: 12px;
   justify-content: space-between;
   margin: 0 auto;
   padding: 30px;
   display: flex;
   gap: 20px;
-  width: 400%;
-  height: 50%;
+  width: 90%;
+  height: 300px;
 `;
 
 export const TitleContainer = styled.div`
   align-items: center;
   display: flex;
   height: 50px;
-  justify-content: space-between;
+  gap: 20px;
   padding: 0 20px;
 `;
 
@@ -29,12 +40,3 @@ export const DoneContainer = styled.div`
   background-color: ${props => props.done ? 'green' : 'red'};
 `;
 
-export const TextArea = styled.textarea`
-  align-items: center;
-  border: 1px #ddd;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  width: 300%;
-  resize: none;
-`;

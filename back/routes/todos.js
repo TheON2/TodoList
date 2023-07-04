@@ -13,6 +13,19 @@ module.exports = function(app, Todo)
         }
     });
 
+    app.get('/todos/todo/:id', async (req, res) => {
+      try {
+        const todo = await Todo.findOne({ id: req.params.id });
+        if (!todo) {
+          return res.status(404).json({ message: "Todo not found" });
+        }
+        res.status(200).json(todo)
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({message: "Server error"});
+      }
+    });
+
     app.post('/todos/working/infinite', async (req, res) => {
         try {
             const page = req.body.page;

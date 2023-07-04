@@ -10,6 +10,11 @@ const getTodos = async () => {
   return response.data;
 };
 
+const getTodo = async (todoId) => {
+  const response = await api.get(`/todos/todo/${todoId}`);
+  return response.data;
+};
+
 const getTodosWorking = async (page) => {
   const response = await api.post(`/todos/working/infinite`, {page:page});
   return response.data;
@@ -46,4 +51,4 @@ const deleteTodo = async (todoId) => {
 };
 
 
-export {getTodos, addTodo, updateTodo, updateDoneTodo, deleteTodo ,getTodosDone ,getTodosWorking ,getTodosWorkingPaging ,getTodosDonePaging};
+export {getTodos,getTodo, addTodo, updateTodo, updateDoneTodo, deleteTodo ,getTodosDone ,getTodosWorking ,getTodosWorkingPaging ,getTodosDonePaging};
