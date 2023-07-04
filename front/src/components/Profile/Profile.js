@@ -5,6 +5,7 @@ import {userLogOut} from "../../api/user";
 import {logOutUser} from "../../redux/reducers/userSlice";
 import {useCallback, useEffect} from "react";
 import {Button} from "../../layout/Header/style";
+import CustomButton from "../CustomButton/CustomButton";
 
 const Profile =({nickName,wokringCount,doneCount})=>{
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const Profile =({nickName,wokringCount,doneCount})=>{
         <h2 className="list-title">Done..! 🎉</h2>
         <h1 style={{color:'red'}}>{doneCount}</h1>
       </div>
-      <Button onClick={onLogOut}>LogOut</Button>
+      <CustomButton theme={'type2'} size={'small'} onClick={onLogOut}>LogOut</CustomButton>
     </ProfileContainer>
   </div>)
 }

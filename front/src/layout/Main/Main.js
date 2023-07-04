@@ -38,7 +38,7 @@ const Main = () => {
     <div id='root'>
       <GlobalStyle/>
         <LayOut>
-          <Header title={'My Todo List'} stack={'React'} user={user}/>
+          <Header title={'The Todo'} stack={'React'} user={user}/>
             <AddForm/>
           <MainContainer>
             <TotalContainer>
