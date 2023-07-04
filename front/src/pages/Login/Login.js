@@ -4,6 +4,8 @@ import React, {useCallback, useEffect} from "react";
 import {loginUser} from "../../redux/reducers/userSlice";
 import useMutate from "../../hooks/useMutate";
 import {userLogin} from "../../api/user";
+import { FaFacebookF,FaGoogle } from "react-icons/fa6";
+import { RiKakaoTalkFill } from "react-icons/ri";
 import {
   Button,
   Container,
@@ -19,6 +21,14 @@ const Login=()=>{
   const login_Mutate = useMutate(userLogin,'user',loginUser);
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
+  const [confirMessage, onChangeConfirmMessage, setComfirmMessage] = useInput('');
+  const [login, onLogin,setLogin] = useInput(false);
+
+  const checkLogin =useCallback(()=>{
+    const pattern = /^[^@]+@[^@]+$/;
+    if(pattern.test(email)&&password.length>=1) setLogin(true)
+    else setLogin(false)
+  },[email,password,login]);
 
   useEffect(() => {
     if (login_Mutate.isSuccess) {
@@ -26,8 +36,14 @@ const Login=()=>{
     }
   }, [login_Mutate.isSuccess, navigate]);
 
+  useEffect(() => {
+    setComfirmMessage('')
+    checkLogin()
+  }, [email,password]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!login) return
     const user = {email,password}
     login_Mutate.mutate(user)
   };
@@ -51,15 +67,16 @@ const Login=()=>{
             <h1>The TodoList</h1>
             <div>
               <SocialContainer>
-                <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-                <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-                <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
+                <a href="#" className="social"><FaFacebookF size={'2em'} color={'blue'}/></a>
+                <a href="#" className="social"><FaGoogle size={'2em'} color={'red'}/></a>
+                <a href="#" className="social"><RiKakaoTalkFill size={'2em'} color={'black'}/></a>
               </SocialContainer>
             </div>
             <span>or use your account</span>
             <Input type="email" placeholder="Email" value={email} onChange={onChangeEmail}/>
             <Input type="password" placeholder="Password" value={password} onChange={onChangePassword}/>
             <a href='#' onClick={forgotPassword}>Forgot your password?</a>
+            <h2>{confirMessage}</h2>
             <Button>Sign In</Button>
           </Form>
         </div>
