@@ -11,6 +11,8 @@ import {
 } from "../SignUp/style";
 import React, {useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import {FaFacebookF, FaGoogle} from "react-icons/fa6";
+import {RiKakaoTalkFill} from "react-icons/ri";
 
 function Signup() {
   const [email, onChangeEmail] = useInput('');
@@ -43,6 +45,11 @@ function Signup() {
     checkLogin()
   }, [email,nickName,password,confirmPassword]);
 
+  useEffect(() => {
+    if (addUser_mutate.isError) {
+      setComfirmMessage(addUser_mutate.error.response.data);
+    }
+  }, [addUser_mutate.isError, addUser_mutate.error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,9 +78,9 @@ function Signup() {
           <h1>Create Account</h1>
           <div>
             <SocialContainer>
-              <a href="#" className="social"><i className="fab fa-facebook-f"></i></a>
-              <a href="#" className="social"><i className="fab fa-google-plus-g"></i></a>
-              <a href="#" className="social"><i className="fab fa-linkedin-in"></i></a>
+              <a href="#" className="social"><FaFacebookF size={'2em'} /></a>
+              <a href="#" className="social"><FaGoogle size={'2em'} /></a>
+              <a href="#" className="social"><RiKakaoTalkFill size={'2em'} color={'black'}/></a>
             </SocialContainer>
           </div>
           <span>or use your email for registration</span>

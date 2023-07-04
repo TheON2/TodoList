@@ -41,6 +41,12 @@ const Login=()=>{
     checkLogin()
   }, [email,password]);
 
+  useEffect(() => {
+    if (login_Mutate.isError) {
+      setComfirmMessage(login_Mutate.error.response.data);
+    }
+  }, [login_Mutate.isError, login_Mutate.error]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if(!login) return
@@ -67,8 +73,8 @@ const Login=()=>{
             <h1>The TodoList</h1>
             <div>
               <SocialContainer>
-                <a href="#" className="social"><FaFacebookF size={'2em'} color={'blue'}/></a>
-                <a href="#" className="social"><FaGoogle size={'2em'} color={'red'}/></a>
+                <a href="#" className="social"><FaFacebookF size={'2em'} /></a>
+                <a href="#" className="social"><FaGoogle size={'2em'} /></a>
                 <a href="#" className="social"><RiKakaoTalkFill size={'2em'} color={'black'}/></a>
               </SocialContainer>
             </div>
@@ -76,8 +82,8 @@ const Login=()=>{
             <Input type="email" placeholder="Email" value={email} onChange={onChangeEmail}/>
             <Input type="password" placeholder="Password" value={password} onChange={onChangePassword}/>
             <a href='#' onClick={forgotPassword}>Forgot your password?</a>
-            <h2>{confirMessage}</h2>
-            <Button>Sign In</Button>
+            <h4>{confirMessage}</h4>
+            <Button signup={login}>Sign In</Button>
           </Form>
         </div>
       </Container>
