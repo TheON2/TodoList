@@ -9,7 +9,7 @@ import {
   Input, SignUpButton, SignUpContainer,
   SocialContainer
 } from "../SignUp/style";
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
 function Signup() {
@@ -17,8 +17,20 @@ function Signup() {
   const [nickName, onChangeNickname] = useInput('');
   const [password, onChangePassword] = useInput('');
   const [confirmPassword, onChangeConfirmPassword] = useInput('');
+  const [confirMessage, onChangeConfirmMessage, setComfirmMessage] = useInput('');
+  const [signUp, onSignUp,setSignUp] = useInput(false);
   const addUser_mutate = useMutate(addUser,'user');
   const navigate = useNavigate();
+
+  const checkLogin =useCallback(()=>{
+    const pattern = /^[^@]+@[^@]+$/;
+    if(pattern.test(email)&&password.length>=1&&confirmPassword.length>=1&&nickName.length>=1) setSignUp(true)
+    else setSignUp(false)
+  },[email,password,confirmPassword,nickName,signUp]);
+
+  const goLogin = () =>{
+    navigate("/Login");
+  }
 
   useEffect(() => {
     if (addUser_mutate.isSuccess) {
@@ -26,14 +38,17 @@ function Signup() {
     }
   }, [addUser_mutate.isSuccess, navigate]);
 
-  const goLogin = () =>{
-    navigate("/Login");
-  }
+  useEffect(() => {
+    setComfirmMessage('')
+    checkLogin()
+  }, [email,nickName,password,confirmPassword]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!signUp) return
     if(password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setComfirmMessage('비밀번호와 확인비밀번호가 일치하지 않습니다.')
       return;
     }
     const newUser = {
@@ -66,7 +81,8 @@ function Signup() {
           <Input type="nickName" placeholder="NickName" value={nickName} onChange={onChangeNickname}/>
           <Input type="password" placeholder="Password" value={password} onChange={onChangePassword}/>
           <Input type="confirmpassword" placeholder="ConfirmPassword" value={confirmPassword} onChange={onChangeConfirmPassword}/>
-          <Button>Sign Up</Button>
+          <h3>{confirMessage}</h3>
+          <Button signup={signUp}>Sign Up</Button>
         </Form>
       </Container>
     </div>

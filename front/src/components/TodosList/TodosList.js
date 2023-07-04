@@ -2,25 +2,26 @@ import TodoCard from "../TodoCard/TodoCard";
 import {ListContainer, TodoContainer} from "./style";
 import {useCallback, useEffect, useState} from "react";
 import useMutate from "../../hooks/useMutate";
-import {getTodosDone, getTodosDonePaging, getTodosWorking, getTodosWorkingPaging} from "../../api/todos";
+import {getTodos, getTodosDone, getTodosDonePaging, getTodosWorking, getTodosWorkingPaging} from "../../api/todos";
 import {
   changeViewMethod,
-  changeViewMode,
-  loadTodos,
-  loadTodosPaging,
-  resetTodos
+  changeViewMode, falseHaveNew,
+  loadTodos, loadTodosDone,
+  loadTodosPaging, loadTodosWorking,
+  resetTodos,
 } from "../../redux/reducers/todosSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {debounce, throttle} from "lodash";
 import Pagination from "../Pagination/Pagination";
 
 const TodosList = ({todos}) => {
-  const workingTodos_Mutate = useMutate(getTodosWorking,'todos',loadTodos)
-  const doneTodos_Mutate = useMutate(getTodosDone,'todos',loadTodos)
+  const Todos_Mutate = useMutate(getTodos,'todos',loadTodos)
+  const workingTodos_Mutate = useMutate(getTodosWorking,'todos',loadTodosWorking)
+  const doneTodos_Mutate = useMutate(getTodosDone,'todos',loadTodosDone)
   const workingTodosPage_Mutate = useMutate(getTodosWorkingPaging,'todos',loadTodosPaging)
   const doneTodosPage_Mutate = useMutate(getTodosDonePaging,'todos',loadTodosPaging)
   const dispatch = useDispatch()
-  const { hasMoreTodos, todos: todolist, page: pageNum,viewMode,viewMethod } = useSelector(state => state.todos);
+  const { hasMoreTodos, todos: todolist, page: pageNum,viewMode,viewMethod,haveNew } = useSelector(state => state.todos);
   const [page,setPage] = useState(0)
 
   const onChangeAll = useCallback(()=>{
@@ -43,6 +44,10 @@ const TodosList = ({todos}) => {
   },[viewMethod])
 
   useEffect(()=>{
+    if(viewMode===1 && haveNew){
+      Todos_Mutate.mutate()
+      dispatch(falseHaveNew())
+    }
     if(hasMoreTodos){
       if(viewMethod===1){
         if(viewMode===2){
@@ -62,7 +67,7 @@ const TodosList = ({todos}) => {
         }
       }
     }
-  },[viewMode,viewMethod])
+  },[viewMode,viewMethod,haveNew])
 
   const handleScroll = debounce(() => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
@@ -96,13 +101,13 @@ const TodosList = ({todos}) => {
         <>
       <h2 className="list-title" onClick={()=>{onChangeViewMode(2)}}>Working.. 🔥</h2>
       <TodoContainer>
-        {todos.filter((a) => a.done === false).slice(0, 4).map((todo) =>
+        {todolist.filter((a) => a.done === false).map((todo) =>
           <TodoCard key={todo.id} todo={todo}/>
         )}
       </TodoContainer>
       <h2 className="list-title" onClick={()=>{onChangeViewMode(3)}}>Done..! 🎉</h2>
       <TodoContainer>
-        {todos.filter((a) => a.done === true).slice(0, 4).map((todo) =>
+        {todolist.filter((a) => a.done === true).map((todo) =>
           <TodoCard key={todo.id} todo={todo}/>
         )}
       </TodoContainer></>}

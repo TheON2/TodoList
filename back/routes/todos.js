@@ -4,8 +4,8 @@ module.exports = function(app, Todo)
         try {
             const doneTodosCount = await Todo.countDocuments({done: false});
             const notDoneTodosCount = await Todo.countDocuments({done: true});
-            const doneTodos = await Todo.find({done: true}).limit(4);
-            const notDoneTodos = await Todo.find({done: false}).limit(4);
+            const doneTodos = await Todo.find({done: true}).sort({ _id: -1 }).limit(4);
+            const notDoneTodos = await Todo.find({done: false}).sort({ _id: -1 }).limit(4);
             res.json({Todos:[...doneTodos, ...notDoneTodos],doneTodosCount,notDoneTodosCount});
         } catch (err) {
             console.error(err);
@@ -93,7 +93,11 @@ module.exports = function(app, Todo)
             }
             todo.done = req.body.done;
             await todo.save();
-            res.json(todo);
+          const doneTodosCount = await Todo.countDocuments({done: false});
+          const notDoneTodosCount = await Todo.countDocuments({done: true});
+          const doneTodos = await Todo.find({done: true}).sort({ _id: -1 }).limit(4);
+          const notDoneTodos = await Todo.find({done: false}).sort({ _id: -1 }).limit(4);
+          res.json({Todos:[...doneTodos, ...notDoneTodos],doneTodosCount,notDoneTodosCount});
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -107,7 +111,11 @@ module.exports = function(app, Todo)
             }
             todo.content = req.body.content;
             await todo.save();
-            res.json(todo);
+          const doneTodosCount = await Todo.countDocuments({done: false});
+          const notDoneTodosCount = await Todo.countDocuments({done: true});
+          const doneTodos = await Todo.find({done: true}).sort({ _id: -1 }).limit(4);
+          const notDoneTodos = await Todo.find({done: false}).sort({ _id: -1 }).limit(4);
+          res.json({Todos:[...doneTodos, ...notDoneTodos],doneTodosCount,notDoneTodosCount});
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -119,7 +127,11 @@ module.exports = function(app, Todo)
             if (!todo) {
                 return res.status(404).json({ message: "Todo not found" });
             }
-            res.json({ message: "Todo successfully deleted" });
+          const doneTodosCount = await Todo.countDocuments({done: false});
+          const notDoneTodosCount = await Todo.countDocuments({done: true});
+          const doneTodos = await Todo.find({done: true}).sort({ _id: -1 }).limit(4);
+          const notDoneTodos = await Todo.find({done: false}).sort({ _id: -1 }).limit(4);
+          res.json({Todos:[...doneTodos, ...notDoneTodos],doneTodosCount,notDoneTodosCount});
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

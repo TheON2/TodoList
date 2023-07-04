@@ -5,12 +5,12 @@ import {Link} from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import {ButtonSet, CardSet, ListWrapper, StyledLink, TodoContainer} from "./style";
 import {useDispatch} from "react-redux";
-import {TodoDelete} from "../../redux/reducers/todosSlice";
+import {loadTodos, TodoDelete} from "../../redux/reducers/todosSlice";
 
 const TodoCard = ({todo}) => {
   const dispatch = useDispatch()
-  const mutation_deleteTodo= useMutate(deleteTodo,'todos')
-  const mutation_updateDoneTodo= useMutate(updateDoneTodo,'todos')
+  const mutation_deleteTodo= useMutate(deleteTodo,'todos',loadTodos)
+  const mutation_updateDoneTodo= useMutate(updateDoneTodo,'todos',loadTodos)
   const delete_Todo=useCallback(()=>{
     mutation_deleteTodo.mutate(todo.id)
     dispatch(TodoDelete(todo.id))

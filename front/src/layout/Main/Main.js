@@ -26,6 +26,14 @@ const Main = () => {
     }
   }, [user,tokenSuccess,tokenError, navigate]);
 
+  useEffect(() => {
+    if(tokenSuccess) {
+      dispatch(authUser(userData));
+    }else if(tokenError||user.token===undefined){
+      navigate("/Login");
+    }
+  }, [user,tokenSuccess,tokenError, navigate]);
+
   if (isLoading) {
     return <p>로딩중입니다....!</p>;
   }

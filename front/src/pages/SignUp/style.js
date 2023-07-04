@@ -49,8 +49,9 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Button = styled.button`
   border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
+  border: none;
+  //background-color: #FF4B2B;
+  background-color: ${props => props.signup === true ? '#FF4B2B' : 'gray'};
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
@@ -58,7 +59,7 @@ export const Button = styled.button`
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
-  margin-top: 20px;
+
 
   &:active {
     transform: scale(0.95);
@@ -71,6 +72,9 @@ export const Button = styled.button`
   &.ghost {
     background-color: transparent;
     border-color: #FFFFFF;
+  }
+  &:hover {
+    cursor:${props => props.signup === true ? 'pointer' : ''};
   }
 `;
 
@@ -130,7 +134,7 @@ export const Container = styled.div`
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 480px;
+  height: 580px;
 `;
 
 export const SocialContainer = styled.div`

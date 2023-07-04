@@ -8,6 +8,7 @@ const initialState = {
   page:1,
   haveWorking:0,
   haveDone:0,
+  haveNew:true,
 }
 
 const todosSlice = createSlice({
@@ -16,8 +17,7 @@ const todosSlice = createSlice({
   reducers: {
     loadTodos: (state, action) => {
       console.log(state.todos)
-      state.todos = state.todos.concat(action.payload)
-      state.hasMoreTodos = action.payload.length === 10
+      state.todos = action.payload.Todos
     },
     loadTodosWorking: (state, action) => {
       state.todos = state.todos.concat(action.payload)
@@ -56,6 +56,12 @@ const todosSlice = createSlice({
           : todo
       );
     },
+    trueHaveNew: (state, action) => {
+      state.haveNew = true
+    },
+    falseHaveNew: (state, action) => {
+      state.haveNew = false
+    },
     changeViewMode: (state, action) => {
       state.todos = []
       state.viewMode = action.payload
@@ -72,6 +78,6 @@ const todosSlice = createSlice({
   },
 })
 
-export const {loadTodos,loadTodosWorking,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
+export const {loadTodos,loadTodosWorking,trueHaveNew,falseHaveNew,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
 
 export default todosSlice.reducer

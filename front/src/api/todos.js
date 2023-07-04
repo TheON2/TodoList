@@ -31,15 +31,18 @@ const getTodosDonePaging = async (page) => {
 };
 
 const updateDoneTodo = async (todo) => {
-  await api.patch(`/todos/${todo.id}/done`, {done: !(todo.done)});
+  const response = await api.patch(`/todos/${todo.id}/done`, {done: !(todo.done)});
+  return response.data;
 };
 
 const updateTodo = async (sendData) => {
-  await api.patch(`/todos/${sendData.id}/content`, {content: sendData.content});
+  const response = await api.patch(`/todos/${sendData.id}/content`, {content: sendData.content});
+  return response.data;
 };
 
 const deleteTodo = async (todoId) => {
-  await api.delete(`/todos/${todoId}`);
+  const response = await api.delete(`/todos/${todoId}`);
+  return response.data;
 };
 
 
