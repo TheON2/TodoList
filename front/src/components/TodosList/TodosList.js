@@ -25,7 +25,13 @@ const TodosList = ({todos}) => {
   const queryClient = useQueryClient();
   const workingTodosPage_Mutate = useMutate(getTodosWorkingPaging,'todos',loadTodosPaging)
   const doneTodosPage_Mutate = useMutate(getTodosDonePaging,'todos',loadTodosPaging)
-  const Todos_Mutate = useMutate(getTodos,'todos',loadTodos)
+  //const Todos_Mutate = useMutate(getTodos,'todos',loadTodos)
+  const {mutate:Todos_Mutate, isLoading:todosLoading} = useMutation(getTodos, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries('todos');
+      dispatch(loadTodos(data))
+    },
+  });
   const {mutate:workingTodos_Mutate, isLoading:workingLoading} = useMutation(getTodosWorking, {
     onSuccess: (data) => {
       queryClient.invalidateQueries('todos');
@@ -61,7 +67,7 @@ const TodosList = ({todos}) => {
 
   useEffect(()=>{
     if(viewMode===1 && haveNew){
-      Todos_Mutate.mutate()
+      Todos_Mutate()
       dispatch(falseHaveNew())
     }
     if(hasMoreTodos){
@@ -102,7 +108,7 @@ const TodosList = ({todos}) => {
 
   return (
     <ListContainer>
-      { viewMode === 1 &&
+      { viewMode === 1 && !todosLoading &&
         <>
       <h2 className="list-title" onClick={()=>{onChangeViewMode(2)}}>Working.. 🔥</h2>
       <TodoContainer>

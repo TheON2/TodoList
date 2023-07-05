@@ -50,6 +50,9 @@ const todosSlice = createSlice({
       state.viewMode=1
       state.viewMethod=1
     },
+    TodoAdd: (state, action) => {
+      state.todos = state.todos.concat(action.payload)
+    },
     TodoDelete: (state, action) => {
       state.todos = state.todos.filter(todo => todo.id !== action.payload);
     },
