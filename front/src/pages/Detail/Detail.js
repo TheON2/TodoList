@@ -5,7 +5,7 @@ import {deleteTodo, getTodo, getTodos} from "../../api/todos";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import ReadTodo from "../../components/ReadTodo/ReadTodo";
 import UpdateTodo from "../../components/UpdateTodo/UpdateTodo";
-import {Container, GlobalStyle} from "./style";
+import {Container, GlobalStyle, Linker} from "./style";
 import useMutate from "../../hooks/useMutate";
 import {changeViewMode, loadTodo, loadTodos, trueHaveNew} from "../../redux/reducers/todosSlice";
 import {useDispatch, useSelector} from "react-redux";
@@ -16,7 +16,6 @@ const Detail = () => {
   const [onUpdate,setOnUpdate]=useState(false)
   const { data, error, isLoading, isError } = useQuery(['todos'], () => getTodo(params.id));
   const dispatch = useDispatch()
-  const { viewMode,viewMethod,haveNew } = useSelector(state => state.todos);
 
   useEffect(() => {
     if (!data) {
@@ -26,7 +25,7 @@ const Detail = () => {
   }, [data, navigate]);
 
   const handleButtonClick = () => {
-    dispatch(changeViewMode(1))
+    // dispatch(changeViewMode(1))
     dispatch(trueHaveNew())
     navigate("/");
   };
@@ -48,8 +47,10 @@ const Detail = () => {
     <GlobalStyle/>
     <Container>
       <div>
-        <CustomButton theme={'type1'} size={'medium'} onClick={handleButtonClick}>이전으로</CustomButton>
-        { !onUpdate ?
+        <Linker href='/'>
+        <CustomButton theme={'type1'} size={'medium'}>이전으로</CustomButton>
+        </Linker>
+          { !onUpdate ?
           <ReadTodo todo={data} toggleUpdate={toggleUpdate}/>:
           <UpdateTodo todo={data} toggleUpdate={toggleUpdate}/>}
       </div>

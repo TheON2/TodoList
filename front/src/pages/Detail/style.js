@@ -59,6 +59,14 @@ export const Container = styled.div`
   height: 100%;
 `;
 
+export const Linker = styled.a`
+  display: flex; 
+  alignItems: center;
+  gap:10px;
+  text-decoration: none;
+  color: inherit;
+`;
+
 export const Container2 = styled.div`
   background-color: gray;
   border-radius: 12px;
