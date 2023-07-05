@@ -9,8 +9,8 @@ import {loadTodos, TodoDelete} from "../../redux/reducers/todosSlice";
 
 const TodoCard = ({todo}) => {
   const dispatch = useDispatch()
-  const mutation_deleteTodo= useMutate(deleteTodo,'todos',loadTodos)
-  const mutation_updateDoneTodo= useMutate(updateDoneTodo,'todos',loadTodos)
+  const mutation_deleteTodo= useMutate(deleteTodo,'todos')
+  const mutation_updateDoneTodo= useMutate(updateDoneTodo,'todos')
   const delete_Todo=useCallback(()=>{
     mutation_deleteTodo.mutate(todo.id)
     dispatch(TodoDelete(todo.id))

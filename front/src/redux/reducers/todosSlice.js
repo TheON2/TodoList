@@ -55,6 +55,8 @@ const todosSlice = createSlice({
     },
     TodoDelete: (state, action) => {
       state.todos = state.todos.filter(todo => todo.id !== action.payload);
+      state.viewMode=1
+      state.haveNew=true
     },
     toggleDone: (state, action) => {
       state.todos = state.todos.map(todo =>
