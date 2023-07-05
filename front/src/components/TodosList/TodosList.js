@@ -66,7 +66,7 @@ const TodosList = ({todos}) => {
   },[viewMethod])
 
   useEffect(()=>{
-    if(viewMode===1 && haveNew){
+    if(haveNew){
       Todos_Mutate()
       dispatch(falseHaveNew())
     }
