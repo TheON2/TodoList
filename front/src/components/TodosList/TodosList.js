@@ -106,6 +106,11 @@ const TodosList = ({todos}) => {
       }
     },[inView, hasMoreTodos, workingLoading, page]);
 
+  useEffect(
+    () => {
+      console.log(todosLoading)
+    },[todosLoading]);
+
   return (
     <ListContainer>
       { viewMode === 1 && !todosLoading &&
