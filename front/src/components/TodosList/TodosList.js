@@ -108,8 +108,8 @@ const TodosList = ({todos}) => {
 
   useEffect(
     () => {
-      console.log(todosLoading)
-    },[todosLoading]);
+      console.log(todosLoading,todolist)
+    },[todosLoading,todolist]);
 
   return (
     <ListContainer>
