@@ -26,12 +26,12 @@ const TodosList = ({todos}) => {
   const workingTodosPage_Mutate = useMutate(getTodosWorkingPaging,'todos',loadTodosPaging)
   const doneTodosPage_Mutate = useMutate(getTodosDonePaging,'todos',loadTodosPaging)
   //const Todos_Mutate = useMutate(getTodos,'todos',loadTodos)
-  const {mutate:Todos_Mutate, isLoading:todosLoading} = useMutation(getTodos, {
-    onSuccess: (data) => {
-      queryClient.invalidateQueries('todos');
-      dispatch(loadTodos(data))
-    },
-  });
+  // const {mutate:Todos_Mutate, isLoading:todosLoading} = useMutation(getTodos, {
+  //   onSuccess: (data) => {
+  //     queryClient.invalidateQueries('todos');
+  //     dispatch(loadTodos(data))
+  //   },
+  // });
   const {mutate:workingTodos_Mutate, isLoading:workingLoading} = useMutation(getTodosWorking, {
     onSuccess: (data) => {
       queryClient.invalidateQueries('todos');
@@ -67,7 +67,6 @@ const TodosList = ({todos}) => {
 
   useEffect(()=>{
     if(haveNew){
-      Todos_Mutate()
       dispatch(falseHaveNew())
     }
     if(hasMoreTodos){
@@ -106,24 +105,19 @@ const TodosList = ({todos}) => {
       }
     },[inView, hasMoreTodos, workingLoading, page]);
 
-  useEffect(
-    () => {
-      console.log(todosLoading,todolist)
-    },[todosLoading,todolist]);
-
   return (
     <ListContainer>
-      { viewMode === 1 && !todosLoading &&
+      { viewMode === 1 &&
         <>
       <h2 className="list-title" onClick={()=>{onChangeViewMode(2)}}>Working.. 🔥</h2>
       <TodoContainer>
-        {todolist.filter((a) => a.done === false).map((todo) =>
+        {todos.filter((a) => a.done === false).map((todo) =>
           <TodoCard key={todo.id} todo={todo}/>
         )}
       </TodoContainer>
       <h2 className="list-title" onClick={()=>{onChangeViewMode(3)}}>Done..! 🎉</h2>
       <TodoContainer>
-        {todolist.filter((a) => a.done === true).map((todo) =>
+        {todos.filter((a) => a.done === true).map((todo) =>
           <TodoCard key={todo.id} todo={todo}/>
         )}
       </TodoContainer></>}

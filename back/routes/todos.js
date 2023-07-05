@@ -106,11 +106,7 @@ module.exports = function(app, Todo)
             }
             todo.done = req.body.done;
             await todo.save();
-          const doneTodosCount = await Todo.countDocuments({done: false});
-          const notDoneTodosCount = await Todo.countDocuments({done: true});
-          const doneTodos = await Todo.find({done: true}).sort({ _id: -1 }).limit(4);
-          const notDoneTodos = await Todo.find({done: false}).sort({ _id: -1 }).limit(4);
-          res.json({Todos:[...doneTodos, ...notDoneTodos],doneTodosCount,notDoneTodosCount});
+          res.status(200).json({ message: '정상적으로 변경되었습니다.' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -124,11 +120,7 @@ module.exports = function(app, Todo)
             }
             todo.content = req.body.content;
             await todo.save();
-          const doneTodosCount = await Todo.countDocuments({done: false});
-          const notDoneTodosCount = await Todo.countDocuments({done: true});
-          const doneTodos = await Todo.find({done: true}).sort({ _id: -1 }).limit(4);
-          const notDoneTodos = await Todo.find({done: false}).sort({ _id: -1 }).limit(4);
-          res.json({Todos:[...doneTodos, ...notDoneTodos],doneTodosCount,notDoneTodosCount});
+          res.status(200).json({ message: '정상적으로 변경되었습니다.' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -140,11 +132,7 @@ module.exports = function(app, Todo)
             if (!todo) {
                 return res.status(404).json({ message: "Todo not found" });
             }
-          const doneTodosCount = await Todo.countDocuments({done: false});
-          const notDoneTodosCount = await Todo.countDocuments({done: true});
-          const doneTodos = await Todo.find({done: true}).sort({ _id: -1 }).limit(4);
-          const notDoneTodos = await Todo.find({done: false}).sort({ _id: -1 }).limit(4);
-          res.json({Todos:[...doneTodos, ...notDoneTodos],doneTodosCount,notDoneTodosCount});
+          res.status(200).json({ message: '정상적으로 삭제되었습니다.' });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
