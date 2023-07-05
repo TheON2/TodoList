@@ -2,11 +2,11 @@ import TodoCard from "../TodoCard/TodoCard";
 import {ListContainer, TodoContainer} from "./style";
 import {useCallback, useEffect, useState} from "react";
 import useMutate from "../../hooks/useMutate";
-import {getTodos, getTodosDone, getTodosDonePaging, getTodosWorking, getTodosWorkingPaging} from "../../api/todos";
+import { getTodosDone, getTodosDonePaging, getTodosWorking, getTodosWorkingPaging} from "../../api/todos";
 import {
   changeViewMethod,
   changeViewMode, falseHaveNew,
-  loadTodos, loadTodosDone,
+   loadTodosDone,
   loadTodosPaging, loadTodosWorking,
   resetTodos, trueHaveNew,
 } from "../../redux/reducers/todosSlice";
@@ -25,13 +25,6 @@ const TodosList = ({todos}) => {
   const queryClient = useQueryClient();
   const workingTodosPage_Mutate = useMutate(getTodosWorkingPaging,'todos',loadTodosPaging)
   const doneTodosPage_Mutate = useMutate(getTodosDonePaging,'todos',loadTodosPaging)
-  //const Todos_Mutate = useMutate(getTodos,'todos',loadTodos)
-  // const {mutate:Todos_Mutate, isLoading:todosLoading} = useMutation(getTodos, {
-  //   onSuccess: (data) => {
-  //     queryClient.invalidateQueries('todos');
-  //     dispatch(loadTodos(data))
-  //   },
-  // });
   const {mutate:workingTodos_Mutate, isLoading:workingLoading} = useMutation(getTodosWorking, {
     onSuccess: (data) => {
       queryClient.invalidateQueries('todos');

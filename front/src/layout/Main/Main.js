@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useQuery} from "react-query";
 import {getTodos} from "../../api/todos";
 import Header from "../Header/Header";
 import AddForm from "../../components/AddForm/AddForm";
 import TodosList from "../../components/TodosList/TodosList";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {GlobalStyle, LayOut, MainContainer, TotalContainer} from "./style";
 import Profile from "../../components/Profile/Profile";
 import {getAuthToken} from "../../api/user";
