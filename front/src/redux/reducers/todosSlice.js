@@ -3,12 +3,13 @@ import {createSlice} from '@reduxjs/toolkit'
 const initialState = {
   todos: [],
   hasMoreTodos:true,
+  Loading:false,
+  haveNew:true,
   viewMode:1,
   viewMethod:1,
   page:1,
   haveWorking:0,
   haveDone:0,
-  haveNew:true,
 }
 
 const todosSlice = createSlice({
@@ -65,6 +66,12 @@ const todosSlice = createSlice({
     falseHaveNew: (state, action) => {
       state.haveNew = false
     },
+    trueLoading: (state, action) => {
+      state.Loading = true
+    },
+    falseLoading: (state, action) => {
+      state.Loading = false
+    },
     changeViewMode: (state, action) => {
       state.todos = []
       state.viewMode = action.payload
@@ -81,6 +88,6 @@ const todosSlice = createSlice({
   },
 })
 
-export const {loadTodos,loadTodo,loadTodosWorking,trueHaveNew,falseHaveNew,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
+export const {loadTodos,trueLoading,falseLoading,loadTodo,loadTodosWorking,trueHaveNew,falseHaveNew,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
 
 export default todosSlice.reducer

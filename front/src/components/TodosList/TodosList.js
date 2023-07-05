@@ -17,21 +17,25 @@ import {useMutation, useQueryClient} from "react-query";
 import {useInView} from "react-intersection-observer";
 
 const TodosList = ({todos}) => {
-  const Todos_Mutate = useMutate(getTodos,'todos',loadTodos)
-  // const workingTodos_Mutate = useMutate(getTodosWorking,'todos',loadTodosWorking)
-  const doneTodos_Mutate = useMutate(getTodosDone,'todos',loadTodosDone)
-  const workingTodosPage_Mutate = useMutate(getTodosWorkingPaging,'todos',loadTodosPaging)
-  const doneTodosPage_Mutate = useMutate(getTodosDonePaging,'todos',loadTodosPaging)
   const dispatch = useDispatch()
   const { hasMoreTodos, todos: todolist, page: pageNum,viewMode,viewMethod,haveNew } = useSelector(state => state.todos);
   const [page,setPage] = useState(0)
   const [ref, inView] = useInView();
 
   const queryClient = useQueryClient();
+  const workingTodosPage_Mutate = useMutate(getTodosWorkingPaging,'todos',loadTodosPaging)
+  const doneTodosPage_Mutate = useMutate(getTodosDonePaging,'todos',loadTodosPaging)
+  const Todos_Mutate = useMutate(getTodos,'todos',loadTodos)
   const {mutate:workingTodos_Mutate, isLoading:workingLoading} = useMutation(getTodosWorking, {
     onSuccess: (data) => {
       queryClient.invalidateQueries('todos');
       dispatch(loadTodosWorking(data))
+    },
+  });
+  const {mutate:doneTodos_Mutate, isLoading:doneLoading} = useMutation(getTodosDone, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries('todos');
+      dispatch(loadTodosDone(data))
     },
   });
 
@@ -67,7 +71,7 @@ const TodosList = ({todos}) => {
           workingTodos_Mutate(page)
           setPage(page+1)
         }else if(viewMode===3){
-          doneTodos_Mutate.mutate(page)
+          doneTodos_Mutate(page)
           setPage(page+1)
         }
       }else{
@@ -81,32 +85,15 @@ const TodosList = ({todos}) => {
     }
   },[viewMode,viewMethod,haveNew])
 
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-    if (scrollHeight - scrollTop === clientHeight && !workingLoading) {
-      if(hasMoreTodos){
-        if(viewMethod===1){
-          if(viewMode===2){
-            workingTodos_Mutate(page)
-            setPage(page+1)
-          }else if(viewMode===3){
-            doneTodos_Mutate.mutate(page)
-            setPage(page+1)
-          }
-        }
-      }
-    }
-  };
-
   useEffect(
     () => {
-      if (inView && hasMoreTodos && !workingLoading) {
+      if (inView && hasMoreTodos) {
         if(viewMethod===1){
-          if(viewMode===2){
+          if(viewMode===2 && !workingLoading){
             workingTodos_Mutate(page)
             setPage(page+1)
-          }else if(viewMode===3){
-            doneTodos_Mutate.mutate(page)
+          }else if(viewMode===3 && !doneLoading){
+            doneTodos_Mutate(page)
             setPage(page+1)
           }
         }
@@ -142,7 +129,7 @@ const TodosList = ({todos}) => {
             <TodoCard key={todo.id} todo={todo}/>
           )}
         </TodoContainer>
-        <div ref={hasMoreTodos && !workingLoading ? ref : undefined} />
+        <div id='bottom' style={{height:'200px'}} ref={hasMoreTodos && !workingLoading ? ref : undefined} />
        </>}
       { viewMode === 2 && viewMethod === 2 &&
       <>
@@ -158,7 +145,6 @@ const TodosList = ({todos}) => {
             <TodoCard key={todo.id} todo={todo}/>
           )}
         </TodoContainer>
-        <div ref={hasMoreTodos && !workingLoading ? ref : undefined} />
       </>}
       { viewMode === 3 && viewMethod === 1 &&
       <>
@@ -172,7 +158,9 @@ const TodosList = ({todos}) => {
           {todolist.map((todo) =>
             <TodoCard key={todo.id} todo={todo}/>
           )}
-        </TodoContainer></>}
+        </TodoContainer>
+        <div id='bottom' style={{height:'200px'}} ref={hasMoreTodos && !doneLoading ? ref : undefined} />
+      </>}
       { viewMode === 3 && viewMethod === 2 &&
       <>
         <h2 className="list-title" style={{display: 'flex'}} onClick={onChangeAll}>Done..! 🎉
