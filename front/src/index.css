@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ReactModal__Body--open,
+.ReactModal__Html--open {
+  background-color: black;
+}

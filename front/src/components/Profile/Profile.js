@@ -29,9 +29,9 @@ const Profile =({nickName,wokringCount,doneCount})=>{
         <p className="scnd-font-color">아 CSS 너무 재밌다!</p>
       </div>
       <div>
-        <h2 className="list-title">Working.. 🔥</h2>
+        <h1 className="list-title">Working.. 🔥</h1>
         <h1 style={{color:'blue'}}>{wokringCount}</h1>
-        <h2 className="list-title">Done..! 🎉</h2>
+        <h1 className="list-title">Done..! 🎉</h1>
         <h1 style={{color:'red'}}>{doneCount}</h1>
       </div>
       <CustomButton theme={'type2'} size={'small'} onClick={onLogOut}>LogOut</CustomButton>

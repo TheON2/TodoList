@@ -27,8 +27,8 @@ const App = () => {
       </div>
       <div id='modalContainer'>
         <h1>Modal</h1>
-        <CustomModal name={'첫번째 모달'} size={'large'} theme={'type1'} type={'type1'}/>
-        <CustomModal name={'두번째 모달'} size={'large'} theme={'type2'} type={'type2'}/>
+        <CustomModal name={'첫번째 모달'} size={'medium'} theme={'type1'} type={'type1'}/>
+        <CustomModal name={'두번째 모달'} size={'medium'} theme={'type2'} type={'type2'}/>
       </div>
       <div style={{overflow: 'hidden', width: 'auto', height: '150px', border: '4px solid skyblue'}}>
         <h1>Select</h1>

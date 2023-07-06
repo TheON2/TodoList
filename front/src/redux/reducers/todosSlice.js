@@ -2,9 +2,11 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
   todos: [],
+  todo:{},
   hasMoreTodos:true,
   Loading:false,
   haveNew:true,
+  modalOn:false,
   viewMode:1,
   viewMethod:1,
   page:1,
@@ -75,6 +77,17 @@ const todosSlice = createSlice({
     falseLoading: (state, action) => {
       state.Loading = false
     },
+    trueModal: (state, action) => {
+      state.modalOn = true
+      state.todo = action.payload
+    },
+    falseModal: (state, action) => {
+      state.modalOn = false
+      state.todo = null
+    },
+    changeContent: (state, action) => {
+      state.todo = action.payload
+    },
     changeViewMode: (state, action) => {
       state.todos = []
       state.viewMode = action.payload
@@ -91,6 +104,6 @@ const todosSlice = createSlice({
   },
 })
 
-export const {loadTodos,trueLoading,falseLoading,loadTodo,loadTodosWorking,trueHaveNew,falseHaveNew,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
+export const {loadTodos,trueLoading,falseLoading,changeContent,trueModal,falseModal,loadTodo,loadTodosWorking,trueHaveNew,falseHaveNew,loadTodosDone,resetTodos,loadTodosWorkingPaging,loadTodosDonePaging,loadTodosPaging ,changeViewMethod ,changeViewMode ,TodoDelete,toggleDone,authTodos} = todosSlice.actions
 
 export default todosSlice.reducer

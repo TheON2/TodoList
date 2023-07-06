@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useQuery} from "react-query";
 import {getTodos} from "../../api/todos";
 import Header from "../Header/Header";
@@ -10,6 +10,7 @@ import {GlobalStyle, LayOut, MainContainer, TotalContainer} from "./style";
 import Profile from "../../components/Profile/Profile";
 import {getAuthToken} from "../../api/user";
 import {authUser} from "../../redux/reducers/userSlice";
+import CustomModal from "../../components/CustomModal/CustomModal";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -37,16 +38,17 @@ const Main = () => {
   return (
     <div id='root'>
       <GlobalStyle/>
-        <LayOut>
-          <Header title={'The Todo'} stack={'React'} user={user}/>
-            <AddForm/>
-          <MainContainer>
-            <TotalContainer>
-              <Profile nickName={user.nickName} wokringCount={data.doneTodosCount} doneCount={data.notDoneTodosCount}/>
-            </TotalContainer>
-            <TodosList todos={data.Todos}/>
-          </MainContainer>
-        </LayOut>
+      <LayOut>
+        <CustomModal type={'type1'}/>
+        <Header title={'The Todo'} stack={'React'} user={user}/>
+        <AddForm/>
+        <MainContainer>
+          <TotalContainer>
+            <Profile nickName={user.nickName} wokringCount={data.doneTodosCount} doneCount={data.notDoneTodosCount}/>
+          </TotalContainer>
+          <TodosList todos={data.Todos}/>
+        </MainContainer>
+      </LayOut>
     </div>
   );
 };

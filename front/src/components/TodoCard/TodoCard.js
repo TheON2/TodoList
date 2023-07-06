@@ -5,11 +5,15 @@ import {Link} from "react-router-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import {ButtonSet, CardSet, ListWrapper, StyledLink, TodoContainer} from "./style";
 import {useDispatch, useSelector} from "react-redux";
-import {loadTodos, TodoDelete, trueHaveNew} from "../../redux/reducers/todosSlice";
+import {loadTodos, TodoDelete, trueHaveNew, trueModal} from "../../redux/reducers/todosSlice";
+import {StyledH4} from "../CustomModal/style";
 
 const TodoCard = ({todo}) => {
   const dispatch = useDispatch()
-  const { viewMode } = useSelector(state => state.todos);
+  const { viewMode,modalOn } = useSelector(state => state.todos);
+  const onModal=useCallback(()=>{
+    dispatch(trueModal(todo))
+  },[])
   const mutation_deleteTodo= useMutate(deleteTodo,'todos')
   const mutation_updateDoneTodo= useMutate(updateDoneTodo,'todos')
   const delete_Todo=useCallback(()=>{
@@ -30,7 +34,7 @@ const TodoCard = ({todo}) => {
   return (
     <ListWrapper>
       <TodoContainer>
-        <StyledLink  to={{pathname: `/${todo.id}`}}>More Detail</StyledLink >
+        <StyledH4 href='#' onClick={onModal}>More Detail</StyledH4>
         <div><h2 className="todo-title">{todo.title}</h2>
           <div>{todo.content}</div>
         </div>

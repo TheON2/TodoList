@@ -1,4 +1,21 @@
 import styled, {createGlobalStyle} from "styled-components";
+import Modal from 'react-modal';
+import {Link as OriginalLink} from "react-router-dom";
+
+export const StyledModal = styled(Modal)`
+  width: ${({ size }) => (size === 'large' ? '70%' : '50%')};
+  height: ${({ size }) => (size === 'large' ? '70%' : '50%')};
+`;
+
+export const StyledH4 = styled.a`
+  color: gray;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+  font-weight: bold;
+  &:hover {
+    color: lightgreen;
+  }
+`;
 
 export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -54,15 +71,15 @@ export const Container = styled.div`
   0 10px 10px rgba(0,0,0,0.22);
   position: relative;
   overflow: hidden;
+  width: 768px;
   max-width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: 18% 1fr;
-  grid-template-rows: 15% 10% 60% 15%;
-  align-content: center;
 `;
 
 export const Linker = styled.a`
+  display: grid;
+  grid-column: 1/3;
+  grid-row: 1/2;
   alignItems: center;
   gap:10px;
   text-decoration: none;
@@ -75,11 +92,15 @@ export const Container2 = styled.div`
   justify-content: space-between;
   margin: 0 auto;
   padding: 30px;
+  display: flex;
   gap: 20px;
+  width: 700%;
+  height: 50%;
 `;
 
 export const TitleContainer = styled.div`
   align-items: center;
+  display: flex;
   height: 50px;
   padding: 0 20px;
 `;
@@ -87,6 +108,7 @@ export const TitleContainer = styled.div`
 export const DoneContainer = styled.div`
   align-items: center;
   border: 1px solid #ddd;
+  display: flex;
   justify-content: space-between;
   padding: 0 20px;
   background-color: ${props => props.done ? 'green' : 'red'};
