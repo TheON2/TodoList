@@ -6,11 +6,12 @@ import AddForm from "../../components/AddForm/AddForm";
 import TodosList from "../../components/TodosList/TodosList";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {GlobalStyle, LayOut, MainContainer, TotalContainer} from "./style";
+import {GlobalStyle, LayOut, MainContainer, Parent, TotalContainer} from "./style";
 import Profile from "../../components/Profile/Profile";
 import {getAuthToken} from "../../api/user";
 import {authUser} from "../../redux/reducers/userSlice";
 import CustomModal from "../../components/CustomModal/CustomModal";
+import Loading from "../../components/Loading/Loading";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Main = () => {
   }, [user,tokenSuccess,tokenError, navigate]);
 
   if (isLoading) {
-    return <p>로딩중입니다....!</p>;
+    return <Parent><Loading /></Parent>
   }
 
   if (isError) {

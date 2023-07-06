@@ -20,6 +20,7 @@ const userSlice = createSlice({
       state.user.email=action.payload.userResponse.email
       state.user.nickName=action.payload.userResponse.nickName
       state.user.token=action.payload.token
+      localStorage.setItem('token', action.payload.token);
       state.user.isLogged=true
     },
     authUser: (state, action) => {
@@ -28,6 +29,7 @@ const userSlice = createSlice({
       state.user.isLogged=true
     },
     unauthUser: (state, action) => {
+      localStorage.removeItem('token');
       state.user.token=undefined
     },
     logOutUser: (state, action) => {
@@ -35,6 +37,7 @@ const userSlice = createSlice({
       state.user.name=null
       state.user.token=null
       state.user.isLogged=false
+      localStorage.removeItem('token');
     },
   },
 })

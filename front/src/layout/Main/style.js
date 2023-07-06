@@ -29,6 +29,13 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+export const Parent = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const MainContainer = styled.div`
   display: grid;
   grid-template-columns: 3fr 0.5fr 6.5fr;
