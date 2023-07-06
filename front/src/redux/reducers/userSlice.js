@@ -9,6 +9,8 @@ const initialState = {
     logInLoading:false,
     logInDone:false,
     logInError:false,
+    imageUrl:"",
+    profileContent:null,
   }
 }
 
@@ -19,6 +21,8 @@ const userSlice = createSlice({
     loginUser: (state, action) => {
       state.user.email=action.payload.userResponse.email
       state.user.nickName=action.payload.userResponse.nickName
+      state.user.profileContent=action.payload.userResponse.profileContent
+      state.user.imageUrl=action.payload.userResponse.profileImg
       state.user.token=action.payload.token
       localStorage.setItem('token', action.payload.token);
       state.user.isLogged=true
@@ -26,7 +30,12 @@ const userSlice = createSlice({
     authUser: (state, action) => {
       state.user.email=action.payload.userResponse.email
       state.user.nickName=action.payload.userResponse.nickName
+      state.user.profileContent=action.payload.userResponse.profileContent
+      state.user.imageUrl=action.payload.userResponse.profileImg
       state.user.isLogged=true
+    },
+    getProfileImage: (state, action) => {
+      state.user.imageUrl=action.payload
     },
     unauthUser: (state, action) => {
       localStorage.removeItem('token');
@@ -42,6 +51,6 @@ const userSlice = createSlice({
   },
 })
 
-export const { loginUser, logOutUser,authUser,unauthUser} = userSlice.actions
+export const { loginUser, logOutUser,authUser,unauthUser,getProfileImage} = userSlice.actions
 
 export default userSlice.reducer

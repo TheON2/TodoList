@@ -20,6 +20,16 @@ const getAuthToken = async () => {
   return response.data;
 };
 
+const profileChange = async (data) => {
+  const response = await api.post(`/user/images`, data);
+  return response.data;
+};
+
+const getProfileImage = async () => {
+  const response = await api.get(`/user/image`);
+  return response.data;
+};
+
 const userLogin = async (loginUser) => {
   const response = await api.post(`/user/login`, loginUser);
   return response.data;
@@ -37,4 +47,4 @@ const deleteUser = async (userEmail) => {
   await api.delete(`/user/${userEmail}`);
 };
 
-export {addUser,getUser, getUsers,getAuthToken, updateUser, deleteUser, userLogin, userLogOut};
+export {addUser,getUser,profileChange, getUsers,getAuthToken, updateUser, deleteUser, userLogin, userLogOut};
