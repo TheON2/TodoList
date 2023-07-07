@@ -6,11 +6,13 @@ import useMutate from "../../hooks/useMutate";
 import CustomButton from "../CustomButton/CustomButton";
 import {Form, Input, InputContent, InputGroup, Label} from "./style";
 import {resetTodos, trueHaveNew} from "../../redux/reducers/todosSlice";
+import {useSelector} from "react-redux";
 
 const AddForm = () => {
   const [title,onChangeTitle,setTitle] = useInput('')
   const [content,onChangeContent,setContent] = useInput('')
   const mutation = useMutate(addTodo,'todos',trueHaveNew)
+  const {email} = useSelector(state=>state.user.user)
 
   const add_Todo=useCallback((e)=>{
     if(title===''){
@@ -22,19 +24,21 @@ const AddForm = () => {
       return
     }
     e.preventDefault()
+    console.log(email)
 
     const newTodo = {
       title,
       content,
       done: false,
       id: uuidv4(),
+      writerEmail:email,
     };
 
     mutation.mutate(newTodo)
 
     setTitle('')
     setContent('')
-  },[title,content,mutation,setTitle,setContent])
+  },[email,title,content,mutation,setTitle,setContent])
 
   return (
     <Form>

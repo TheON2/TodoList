@@ -16,17 +16,17 @@ import Loading from "../../components/Loading/Loading";
 const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {isLoading, isError, data} = useQuery("todos", getTodos);
   const {user} = useSelector(state => state.user)
-  const { isError:tokenError, data:userData ,isSuccess:tokenSuccess} = useQuery('user',getAuthToken)
+  const {isLoading, isError, data} = useQuery("todos", getTodos);
+  const { isError:tokenError, data:userData ,isSuccess:tokenSuccess} = useQuery('user',getAuthToken, { cacheTime: 0 })
 
   useEffect(() => {
     if(tokenSuccess) {
       dispatch(authUser(userData));
-    }else if(tokenError||user.token===undefined){
+    }else if(user.token===undefined){
       navigate("/Login");
     }
-  }, [user,tokenSuccess,tokenError, navigate]);
+  }, [user.token,tokenSuccess]);
 
   if (isLoading) {
     return <Parent><Loading /></Parent>

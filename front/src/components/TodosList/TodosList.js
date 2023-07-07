@@ -1,6 +1,6 @@
 import TodoCard from "../TodoCard/TodoCard";
 import {ListContainer, TodoContainer} from "./style";
-import {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import useMutate from "../../hooks/useMutate";
 import { getTodosDone, getTodosDonePaging, getTodosWorking, getTodosWorkingPaging} from "../../api/todos";
 import {
@@ -15,6 +15,9 @@ import {debounce, throttle} from "lodash";
 import Pagination from "../Pagination/Pagination";
 import {useMutation, useQueryClient} from "react-query";
 import {useInView} from "react-intersection-observer";
+import {SiNaver} from "react-icons/si";
+import {IoInfinite} from "react-icons/io5";
+import {FaPager} from "react-icons/fa";
 
 const TodosList = ({todos}) => {
   const dispatch = useDispatch()
@@ -117,9 +120,9 @@ const TodosList = ({todos}) => {
       { viewMode === 2 && viewMethod === 1 &&
       <>
         <h2 className="list-title" style={{display: 'flex'}} onClick={onChangeAll}>Working.. 🔥
-          <span style={{marginLeft: 'auto'}}>
-            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}>인피</button>
-            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
+          <span style={{marginRight: 'auto'}}>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}><IoInfinite size={'2em'} /></button>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}><FaPager size={'2em'} /></button>
           </span>
         </h2>
         <TodoContainer>
@@ -132,9 +135,9 @@ const TodosList = ({todos}) => {
       { viewMode === 2 && viewMethod === 2 &&
       <>
         <h2 className="list-title" style={{display: 'flex'}} onClick={onChangeAll}>Working.. 🔥
-          <span style={{marginLeft: 'auto'}}>
-            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}>인피</button>
-            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
+          <span style={{marginRight: 'auto'}}>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}><IoInfinite size={'2em'} /></button>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}><FaPager size={'2em'} /></button>
           </span>
         </h2>
         <Pagination page={pageNum}/>
@@ -147,9 +150,9 @@ const TodosList = ({todos}) => {
       { viewMode === 3 && viewMethod === 1 &&
       <>
         <h2 className="list-title" style={{display: 'flex'}} onClick={onChangeAll}>Done..! 🎉
-          <span style={{marginLeft: 'auto'}}>
-            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}>인피</button>
-            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
+          <span style={{marginRight: 'auto'}}>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}><IoInfinite size={'2em'} /></button>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}><FaPager size={'2em'} /></button>
           </span>
         </h2>
         <TodoContainer>
@@ -162,9 +165,9 @@ const TodosList = ({todos}) => {
       { viewMode === 3 && viewMethod === 2 &&
       <>
         <h2 className="list-title" style={{display: 'flex'}} onClick={onChangeAll}>Done..! 🎉
-          <span style={{marginLeft: 'auto'}}>
-            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}>인피</button>
-            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}>페이</button>
+          <span style={{marginRight: 'auto'}}>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(1)}}><IoInfinite size={'2em'} /></button>
+            <button onClick={(e)=>{e.stopPropagation();onChangeViewMethod(2)}}><FaPager size={'2em'} /></button>
           </span>
         </h2>
         <Pagination page={pageNum}/>

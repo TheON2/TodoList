@@ -13,6 +13,7 @@ import React, {useCallback, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {FaFacebookF, FaGoogle} from "react-icons/fa6";
 import {RiKakaoTalkFill} from "react-icons/ri";
+import {SiNaver} from "react-icons/si";
 
 function Signup() {
   const [email, onChangeEmail] = useInput('');
@@ -78,9 +79,9 @@ function Signup() {
           <h1>Create Account</h1>
           <div>
             <SocialContainer>
-              <a href="#" className="social"><FaFacebookF size={'2em'} /></a>
-              <a href="#" className="social"><FaGoogle size={'2em'} /></a>
-              <a href="#" className="social"><RiKakaoTalkFill size={'2em'} color={'black'}/></a>
+              <a href={`${process.env.REACT_APP_LOCAL_SERVER}/user/naver`} className="social"><SiNaver size={'2em'} /></a>
+              <a href={`${process.env.REACT_APP_LOCAL_SERVER}/user/google`} className="social"><FaGoogle size={'2em'} /></a>
+              <a href={`${process.env.REACT_APP_LOCAL_SERVER}/user/kakao`} className="social"><RiKakaoTalkFill size={'2em'} color={'black'}/></a>
             </SocialContainer>
           </div>
           <span>or use your email for registration</span>

@@ -6,6 +6,7 @@ import useMutate from "../../hooks/useMutate";
 import {getAuthToken, userLogin} from "../../api/user";
 import { FaFacebookF,FaGoogle } from "react-icons/fa6";
 import { RiKakaoTalkFill } from "react-icons/ri";
+import { SiNaver } from "react-icons/si";
 import {
   Button,
   Container,
@@ -86,9 +87,9 @@ const Login=()=>{
             <h1>The TodoList</h1>
             <div>
               <SocialContainer>
-                <a href="#" className="social"><FaFacebookF size={'2em'} /></a>
-                <a href="#" className="social"><FaGoogle size={'2em'} /></a>
-                <a href="#" className="social"><RiKakaoTalkFill size={'2em'} color={'black'}/></a>
+                <a href={`${process.env.REACT_APP_LOCAL_SERVER}/user/naver`} className="social"><SiNaver size={'2em'} /></a>
+                <a href={`${process.env.REACT_APP_LOCAL_SERVER}/user/google`} className="social"><FaGoogle size={'2em'} /></a>
+                <a href={`${process.env.REACT_APP_LOCAL_SERVER}/user/kakao`} className="social"><RiKakaoTalkFill size={'2em'} color={'black'}/></a>
               </SocialContainer>
             </div>
             <span>or use your account</span>
