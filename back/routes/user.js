@@ -96,9 +96,9 @@ module.exports = function(app, User)
       if (err) {
         return next(err);
       }
-      if (!user) {
-        return res.redirect(`${process.env.ORIGIN}/Login`);
-      }
+      // if (!user) {
+      //   return res.redirect(`${process.env.ORIGIN}/Login`);
+      // }
       try {
         console.log('몽고유저 조회함 구글:',user)
         let mongoUser = await User.findOne({ email: user.email });

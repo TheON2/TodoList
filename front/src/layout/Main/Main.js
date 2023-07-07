@@ -17,8 +17,8 @@ const Main = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {user} = useSelector(state => state.user)
-  const {isLoading, isError, data} = useQuery("todos", getTodos);
   const { isError:tokenError, data:userData ,isSuccess:tokenSuccess} = useQuery('user',getAuthToken, { cacheTime: 0 })
+  const {isLoading, isError, data} = useQuery("todos", getTodos);
 
   useEffect(() => {
     if(tokenSuccess) {
