@@ -1,10 +1,10 @@
 import React from 'react';
 import FlowSelect from "./components/FlowSelect";
-import CustomButton from "./components/CustomButton";
 import CustomModal from "./components/CustomModal";
 import Icon1 from "./static/Icon1";
 import Icon2 from "./static/Icon2";
 import CustomInput from "./components/CustomInput";
+import CustomButton from "./components/CustomButton/CustomButton";
 
 const App = () => {
   const icon = Icon1()
